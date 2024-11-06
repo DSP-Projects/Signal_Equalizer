@@ -11,8 +11,24 @@ class MainWindow(QMainWindow):
         loadUi("SignalEqualizer.ui", self)
         self.setWindowTitle("Signal Equalizer")
 
+        self.mode_chosen= self.findChild('QComboBox', "Mode")
+        self.mode_chosen.IndexChanged.connect(self.change_mode)
+    
+        
 
+    def change_mode(self, index):
+        match index:
 
+            case 0: #uniform
+                #instatantiate object from uniform mode class and apply changes onto it
+                pass
+            case 1: #musical 
+                pass
+            case 2: #animal
+                pass
+            case 4: #ECG
+                pass
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()

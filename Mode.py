@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 
 class Mode(ABC):
     def __init__(self):
-        pass
+        self.freq_ranges= None
+        
 
     @abstractmethod
     def update_sliders(self):
