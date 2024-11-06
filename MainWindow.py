@@ -8,8 +8,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        loadUi("SamplingStudio.ui", self)
-        self.setWindowTitle("Sampling Studio")
+        loadUi("SignalEqualizer.ui", self)
+        self.setWindowTitle("Signal Equalizer")
 
 
 
