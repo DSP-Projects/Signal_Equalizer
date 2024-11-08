@@ -7,6 +7,7 @@ class Mode(ABC):
         self.freq_ranges= None
         self.sliders_widget=sliders_widget
         self.sliders_list=[]
+        self.gain_limits = (0, 10)
 
         if self.sliders_widget.layout() is None:
             layout = QVBoxLayout(self.sliders_widget)
@@ -15,6 +16,8 @@ class Mode(ABC):
             layout = self.sliders_widget.layout()
         for _ in range(num_of_sliders):
             slider = QSlider(Qt.Vertical) 
+            slider.setRange(self.gain_limits[0], self.gain_limits[1])  # Set slider range to control gain
+            slider.setValue(5)
             layout.addWidget(slider)
             self.sliders_list.append(slider)
 
