@@ -3,7 +3,7 @@ from PyQt5.uic import loadUi
 import sys
 import pyqtgraph as pg
 import os
-
+from Spectrogram import Spectrogram
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -13,7 +13,9 @@ class MainWindow(QMainWindow):
 
         self.mode_chosen= self.findChild('QComboBox', "Mode")
         self.mode_chosen.IndexChanged.connect(self.change_mode)
-    
+        
+        spectrogram_plot = Spectrogram()
+        self.layout.addWidget(spectrogram_plot.canvas)
         
 
     def change_mode(self, index):
