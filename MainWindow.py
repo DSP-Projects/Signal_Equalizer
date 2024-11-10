@@ -8,14 +8,14 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        loadUi("SignalEqualizer.ui", self)
+        loadUi("SignalEualizer.ui", self)
         self.setWindowTitle("Signal Equalizer")
 
-        self.mode_chosen= self.findChild('QComboBox', "Mode")
-        self.mode_chosen.IndexChanged.connect(self.change_mode)
+        # self.mode_chosen= self.findChild('QComboBox', "Mode")
+        # self.mode_chosen.IndexChanged.connect(self.change_mode)
         
-        spectrogram_plot = Spectrogram()
-        self.layout.addWidget(spectrogram_plot.canvas)
+        # spectrogram_plot = Spectrogram()
+        # self.layout.addWidget(spectrogram_plot.canvas)
         
 
     def change_mode(self, index):

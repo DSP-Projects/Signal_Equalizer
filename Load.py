@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtCore import pyqtSlot
-
+from scipy.io import wavfile
 class Load:
     def __init__(self):
         self.file_path = None
@@ -23,3 +23,5 @@ class Load:
         else:
             self.file_path_list.append(self.file_path)
             return True
+        
+    
