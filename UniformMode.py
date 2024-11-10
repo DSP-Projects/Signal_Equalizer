@@ -1,5 +1,5 @@
 from Mode import Mode
-
+import math
 class UniformMode(Mode):
     
     def __init__(self, sliders_widget, num_of_sliders: int=10):
@@ -32,4 +32,9 @@ class UniformMode(Mode):
         return signal
 
     def send_reconstruct(self, freq_mag, freq_phase):
-        return 
+        signal = []
+        for mag, phase in zip(freq_mag, freq_phase):
+            x = mag * math.cos(phase)
+            y = mag * math.sin(phase)
+            signal.append(complex(x, y))
+        return signal
