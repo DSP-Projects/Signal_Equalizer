@@ -1,7 +1,4 @@
 from Mode import Mode
-from PyQt5.QtWidgets import QSlider, QVBoxLayout, QWidget, QApplication
-import sys
-from PyQt5.QtCore import Qt
 
 class UniformMode(Mode):
     
@@ -27,17 +24,12 @@ class UniformMode(Mode):
                 elif comp > range_end:
                      break
 
-    def update_mode_upon_sliders_change(self, slider_index, gain_value):
+    def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_mag, freq_list, freq_phase):
         gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
         # Apply gain to the frequencies in this range 
-        self.freq_ranges[slider_index]= [freq*gain_factor for freq in self.freq_ranges[slider_index]]
-        return self.freq_ranges
-    
-# if __name__== '__main__':
-#     import numpy as np
-#     list_freq= [0, 10, 20, 50, 60, 70, 80, 90, 100, 200]
-#     app = QApplication(sys.argv)
-#     widget= QWidget()
-#     uniform= UniformMode(widget)
-#     uniform.init_mode(list_freq)
-#     print(uniform.update_mode_upon_sliders_change(1, 10))
+        freq_mag= [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
+        signal= self.send_reconstruct(freq_mag, freq_phase)
+        return signal
+
+    def send_reconstruct(self, freq_mag, freq_phase):
+        return 
