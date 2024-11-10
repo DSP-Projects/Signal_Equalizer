@@ -30,11 +30,4 @@ class UniformMode(Mode):
         freq_mag= [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
         signal= self.send_reconstruct(freq_mag, freq_phase)
         return signal
-
-    def send_reconstruct(self, freq_mag, freq_phase):
-        signal = []
-        for mag, phase in zip(freq_mag, freq_phase):
-            x = mag * math.cos(phase)
-            y = mag * math.sin(phase)
-            signal.append(complex(x, y))
-        return signal
+    

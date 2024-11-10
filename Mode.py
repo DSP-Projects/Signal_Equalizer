@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from PyQt5.QtWidgets import QSlider, QVBoxLayout
 from PyQt5.QtCore import Qt
+import math 
 
 class Mode(ABC):
     def __init__(self, sliders_widget, num_of_sliders):
@@ -40,3 +41,12 @@ class Mode(ABC):
         list of new freq_componets 
         '''
         pass
+
+    def send_reconstruct(self, freq_mag, freq_phase):
+            signal = []
+            for mag, phase in zip(freq_mag, freq_phase):
+                x = mag * math.cos(phase)
+                y = mag * math.sin(phase)
+                signal.append(complex(x, y))
+            return signal
+

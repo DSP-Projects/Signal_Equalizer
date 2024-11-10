@@ -15,13 +15,8 @@ class MusicMode(Mode):
             gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
             # Apply gain to the frequencies in this range 
             freq_mag = [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
-
-            return freq_mag
-    
-    def send_reconstructed(freq_mag,freq_phase):
-           return freq_mag*(np.sin(freq_phase))
-
-   
+            signal= self.send_reconstruct(freq_mag, freq_phase)
+            return signal
                         
                    
                    

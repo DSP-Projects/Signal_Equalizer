@@ -6,7 +6,7 @@ class Signal:
         self.file_extension = self.file_path.split('.')[-1].lower()
         self.signal_data_amplitude=None
         self.signal_data_time=None
-
+        self.sample_rate_wav=None
 
         if(self.file_extension=="csv"):
             self.csv_path = file_path
@@ -15,9 +15,8 @@ class Signal:
             self.signal_data_amplitude = csvFile.iloc[:3000, 1].values
             self.graph_num= graph_num
         elif(self.file_extension=="wav"):
-            sample_rate, signal = wavfile.read(file_path)
-            # Convert sample indices to time (in seconds)
-            duration = len(signal) / sample_rate  # Total duration in seconds
+            self.sample_rate_wav, signal = wavfile.read(file_path)
+            duration = len(signal) / self.sample_rate_wav
             self.signal_data_time = np.linspace(0, duration, len(signal)) 
             self.signal_data_amplitude=signal
 
