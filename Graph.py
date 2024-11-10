@@ -1,6 +1,6 @@
 import pyqtgraph as pg
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QHBoxLayout, QWidget
 
 class Graph:
     def __init__(self, graphWidget, title, xlabel, ylabel):
@@ -17,10 +17,10 @@ class Graph:
 
         # Set background and grid
         self.graphWidget.setBackground('#e6eaf1')
-        self.graphWidget.setStyleSheet(""" background-color: #e6eaf1;
-                                           border-radius: 15px; 
-                                           border: 2px solid #ffffff;
-                                           box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);""")
+        self.graphWidget.setStyleSheet("""background-color: #e6eaf1;
+                                         border-radius: 15px; 
+                                         border: 2px solid #ffffff;
+                                         box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);""")
 
         # Configure plot labels and axis colors
         self.graphWidget.getAxis('left').setPen(pg.mkPen(color='#2e556d', width=2))
@@ -44,9 +44,26 @@ class Graph:
 
         self.is_paused = False  # To track play/pause state
         self.is_rewinding = False  # To track rewind state
+        self.zoom_factor = 1.2  # Zoom factor
+        self.default_window_size_x = 100
+        self.window_size_x = self.default_window_size_x
 
         # Disable panning
         self.graphWidget.getViewBox().setMouseEnabled(x=False, y=False)
+
+    
+
+    # def zoom_in(self):
+      
+    #     self.window_size_x = max(self.window_size_x / self.zoom_factor, 10)
+    #     self.update_plot()
+
+    # def zoom_out(self):
+    #     self.window_size_x = min(self.window_size_x * self.zoom_factor, self.default_window_size_x)
+    #     self.update_plot()
+
+    def set_speed(self, interval): 
+        self.timer.setInterval(interval)  
 
     def set_signal(self, signal_x, signal_y):
         self.current_frame = 0  # Reset frame counter when new signal is set
@@ -67,8 +84,20 @@ class Graph:
                 else:
                     self.is_rewinding = True  # Start rewinding when reaching the end
 
-            # Update the plot with the current frame data
             self.signal_plot.setData(self.signal_x[:self.current_frame], self.signal_y[:self.current_frame], pen=pg.mkPen('#3286ad', width=2))
+
+            if self.current_frame < len(self.signal_x):
+                x_data = self.signal_x[:self.current_frame]
+
+                if len(x_data) > 0:
+                    self.graphWidget.setLimits(xMin=x_data[0], xMax=x_data[-1])
+
+                    if x_data[-1] < self.window_size_x:
+                        self.graphWidget.setXRange(x_data[0], x_data[0] + self.window_size_x)
+                    else:
+                        self.start = x_data[-1] - self.window_size_x
+                        self.end = x_data[-1]
+                        self.graphWidget.setXRange(self.start, self.end)
 
     def toggle_play_pause(self): 
         self.is_paused = not self.is_paused
@@ -85,4 +114,4 @@ class Graph:
         self.signal_x = []
         self.signal_y = []
         self.current_frame = 0
-        self.signal_plot = self.graphWidget.plot()  # Recreate the plot item to fully reset
+        self.signal_plot = self.graphWidget.plot()  # Recreate the plot item to fully
