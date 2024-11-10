@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1453</width>
-    <height>514</height>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,8 +69,8 @@
   font-size: 50%;
   height: 40px;
   line-height: 1.15;
- margin: 15px 10px;
- margin-bottom: 3px;
+ margin: 30px 10px;
+ margin-bottom:20px;
   outline: none;
   overflow: hidden;
   padding: 0 5px;
@@ -98,7 +98,7 @@ QPushButton:pressed {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>../Signal_Equalizer--1/icons/icons8-upload-24.png</normaloff>../Signal_Equalizer--1/icons/icons8-upload-24.png</iconset>
+             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer--1/icons/icons8-upload-24.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer--1/icons/icons8-upload-24.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -110,6 +110,73 @@ QPushButton:pressed {
          </item>
          <item>
           <widget class="QPushButton" name="removeFile">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 50%;
+  height: 40px;
+  line-height: 1.15;
+ margin: 20px 10px;
+ margin-top:5px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+  padding-bottom:2px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:150px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Remove File</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer--1/icons/icons8-remove-document-32.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer--1/icons/icons8-remove-document-32.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioBefore">
            <property name="font">
             <font>
              <family>-apple-system</family>
@@ -161,7 +228,7 @@ QPushButton:pressed {
 </string>
            </property>
            <property name="text">
-            <string>Remove File</string>
+            <string>Audio Before</string>
            </property>
            <property name="icon">
             <iconset>
@@ -171,6 +238,73 @@ QPushButton:pressed {
             <size>
              <width>25</width>
              <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioAfter">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 50%;
+  height: 40px;
+  line-height: 1.15;
+ margin: 15px 10px;
+ margin-bottom: 3px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:2px;
+  padding-bottom:2px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:150px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Audio After</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../Signal_Equalizer--1/icons/icons8-upload-24.png</normaloff>../Signal_Equalizer--1/icons/icons8-upload-24.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
             </size>
            </property>
           </widget>
