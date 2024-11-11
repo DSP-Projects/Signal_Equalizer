@@ -382,7 +382,7 @@ border: None;</string>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="mode_2">
+            <widget class="QComboBox" name="scale">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
