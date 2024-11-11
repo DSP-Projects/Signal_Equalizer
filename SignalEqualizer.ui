@@ -45,10 +45,8 @@
           <widget class="QPushButton" name="browseFile">
            <property name="font">
             <font>
-             <family>-apple-system</family>
+             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
              <pointsize>-1</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
             </font>
            </property>
            <property name="cursor">
@@ -112,10 +110,8 @@ QPushButton:pressed {
           <widget class="QPushButton" name="removeFile">
            <property name="font">
             <font>
-             <family>-apple-system</family>
+             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
              <pointsize>-1</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
             </font>
            </property>
            <property name="cursor">
@@ -171,132 +167,6 @@ QPushButton:pressed {
             <size>
              <width>25</width>
              <height>25</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="audioBefore">
-           <property name="font">
-            <font>
-             <family>-apple-system</family>
-             <pointsize>-1</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton{
-  appearance: button;
-  backface-visibility: hidden;
-  background-color: #3388b0;
-  border-radius: 6px;
-  border-width: 0;
-  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-  box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
-  font-size: 17px;
-  height: 35px;
-  line-height: 1.15;
- margin: 0px 10px;
- margin-top:5px;
-  outline: none;
-  overflow: hidden;
-  padding: 0 5px;
-  padding-right:1px;
-
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
-  touch-action: manipulation;
-  width:140px;
-}
-QPushButton:hover {
-    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
-}
-
-QPushButton:pressed {
-    background-color: #1b4b61;    /* Darker blue when pressed */
-}
-</string>
-           </property>
-           <property name="text">
-            <string>Audio Before</string>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="audioAfter">
-           <property name="font">
-            <font>
-             <family>-apple-system</family>
-             <pointsize>-1</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton{
-  appearance: button;
-  backface-visibility: hidden;
-  background-color: #3388b0;
-  border-radius: 6px;
-  border-width: 0;
-  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-  box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
-  font-size: 17px;
-  height: 35px;
-  line-height: 1.15;
- margin: 0px 10px;
- margin-top:5px;
-  outline: none;
-  overflow: hidden;
-  padding: 0 5px;
-  padding-right:1px;
-
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
-  touch-action: manipulation;
-  width:140px;
-}
-QPushButton:hover {
-    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
-}
-
-QPushButton:pressed {
-    background-color: #1b4b61;    /* Darker blue when pressed */
-}
-</string>
-           </property>
-           <property name="text">
-            <string>Audio After</string>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>23</width>
-             <height>23</height>
             </size>
            </property>
           </widget>
@@ -377,7 +247,7 @@ margin-bottom: 10px;
 border: None;</string>
              </property>
              <property name="text">
-              <string>Choose The Scale</string>
+              <string>Choose Scale</string>
              </property>
             </widget>
            </item>
@@ -496,12 +366,10 @@ background-color: rgb(168, 170, 175);
              <property name="styleSheet">
               <string notr="true">color: rgb(26, 70, 91);
 background: rgba(74, 74, 74, 0);
-margin-top: 20px;
-margin-bottom: 10px;
 border: None;</string>
              </property>
              <property name="text">
-              <string>Choose The Mode</string>
+              <string>Choose Mode</string>
              </property>
             </widget>
            </item>
@@ -703,6 +571,162 @@ background-color: rgb(168, 170, 175);
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="label_2">
+           <property name="styleSheet">
+            <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+border:None;</string>
+           </property>
+           <property name="text">
+            <string>Original Audio</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioBefore">
+           <property name="font">
+            <font>
+             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Play</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="styleSheet">
+            <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+border:None;</string>
+           </property>
+           <property name="text">
+            <string>Modified Audio</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioAfter">
+           <property name="font">
+            <font>
+             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Play</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer_5">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -794,10 +818,7 @@ background-color: rgb(168, 170, 175);
               </property>
               <property name="font">
                <font>
-                <family>-apple-system</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
                </font>
               </property>
               <property name="cursor">
@@ -858,10 +879,7 @@ QPushButton:pressed {
              <widget class="QPushButton" name="play">
               <property name="font">
                <font>
-                <family>-apple-system</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
                </font>
               </property>
               <property name="cursor">
@@ -978,10 +996,7 @@ QRadioButton:pressed {
              <widget class="QPushButton" name="zoomOut">
               <property name="font">
                <font>
-                <family>-apple-system</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
                </font>
               </property>
               <property name="cursor">
@@ -1214,10 +1229,7 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
               <widget class="QLabel" name="label_">
                <property name="font">
                 <font>
-                 <family>Overpass SemiBold</family>
                  <pointsize>-1</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
