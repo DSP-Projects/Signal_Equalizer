@@ -15,6 +15,10 @@ from UniformMode import UniformMode
 from MusicMode import MusicMode
 from ECGAbnormalities_mode import ECGAbnormalities
 from AnimalMode import AnimalMode
+import simpleaudio as sa
+from pydub import AudioSegment
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -32,7 +36,7 @@ class MainWindow(QMainWindow):
         self.sampling = Sampling()
         self.signal=None 
         self.sample_rate = 1000 
-    
+        self.file_path=None
         self.mode_chosen= self.findChild(QComboBox, "mode")
         self.mode_chosen.setCurrentIndex(0)
         self.mode_chosen.currentIndexChanged.connect(self.change_mode)
@@ -66,6 +70,8 @@ class MainWindow(QMainWindow):
         self.speed.setValue(100)  # Set initial zoom value
         self.speed.valueChanged.connect(self.set_speed_value) 
 
+        # self.toggle_stat_original_audio = self.findChild(QPushButton, 'audioBefore')
+        # self.toggle_stat_original_audio.clicked.connect(self.play_original_audio_func)
       
 
         self.graph1 = self.findChild(pg.PlotWidget, 'graph1')
@@ -129,12 +135,22 @@ class MainWindow(QMainWindow):
         if self.signal.signal_data_time is not None and self.signal.signal_data_amplitude is not None:
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), is_audiogram, self.graph3)        
 
+    # def play_original_audio_func(self):
+    #     audio = AudioSegment.from_file(self.file_path)
+    #     sample_rate = audio.frame_rate
+    #     samples = np.array(audio.get_array_of_samples())
+    #     audio_obj = sa.play_buffer(samples.tobytes(), 1, 2, sample_rate)
+    #     audio_obj.wait_done() 
+    
+
     def load_signal(self): 
-         file_path = self.load_instance.browse_signals() 
+         self.file_path = self.load_instance.browse_signals() 
          self.clear_signals()
-         if file_path: 
+         if self.file_path: 
+              # Handle the loaded signal 
+              # For example, load the signal data into a graph 
               try: 
-                self.prepare_load(file_path)
+                  self.prepare_load(self.file_path)
               except Exception as e: 
                 QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
     def rewind_signal(self):        
@@ -169,6 +185,7 @@ class MainWindow(QMainWindow):
     
     def set_default(self):
         file_path="output4.csv"
+        self.change_mode(0)
         self.prepare_load(file_path)
            
     def prepare_load(self, file_path):
@@ -179,7 +196,7 @@ class MainWindow(QMainWindow):
             self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
         self.signal=Signal(1,file_path)
-        self.change_mode(0)
+        
         self.mode_instance.set_time(self.signal.signal_data_time)
         self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
         self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)      
