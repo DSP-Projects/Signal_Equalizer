@@ -9,6 +9,7 @@ from Graph import Graph
 from PyQt5.QtGui import QIcon
 from Load import Load
 from Signal import Signal
+from sampling import Sampling
 import numpy as np
 
 class MainWindow(QMainWindow):
@@ -18,6 +19,20 @@ class MainWindow(QMainWindow):
         loadUi("SignalEqualizer.ui", self)
         self.setWindowTitle("Signal Equalizer")
 
+
+        
+         #hajar
+        # Initialize the scale combo box
+        self.scale_combo_box = self.findChild(QComboBox, 'scale')
+        self.scale_combo_box.setCurrentIndex(0)  # Set default to "Linear Scale"
+        self.scale_combo_box.currentIndexChanged.connect(self.change_scale)
+
+
+        self.sampling = Sampling()
+
+        self.signal_data_time = None
+        self.signal_data_amplitude = None
+        self.sample_rate = 1000 
     #     self.mode_chosen= self.findChild('QComboBox', "Mode")
     #     self.mode_chosen.IndexChanged.connect(self.change_mode)
         
@@ -56,12 +71,10 @@ class MainWindow(QMainWindow):
 
         self.graph1 = Graph(self.graph1, "Graph 1", "", "")
         self.graph2 = Graph(self.graph2, "Graph 2", "", "")
-        self.graph3 = Graph(self.graph3, "Graph 3", "", "")
+        self.graph3 = Graph(self.graph3,  "Frequency Domain", "Frequency (Hz)", "Magnitude")
         self.graph4_instance = Graph(self.graph4, "Graph 4", "", "")
         self.graph5_instance = Graph(self.graph5, "Graph 5", "", "")
         
-
-
 
 
         self.load_instance = Load()  # Instance of the Load class
@@ -95,6 +108,20 @@ class MainWindow(QMainWindow):
             self.graph5.setVisible(True) 
             print("PlotWidgets are visible")
 
+
+    def change_scale(self):
+        """Update the graph to use either linear or audiogram scale based on combo box selection."""
+        selected_scale = self.scale_combo_box.currentText()
+        
+        if selected_scale == "Audiogram Scale":
+            self.sampling.set_scale(True)  # Set to audiogram (logarithmic) scale
+        else:
+            self.sampling.set_scale(False)  # Set to linear scale
+
+        # Re-plot frequency domain with the selected scale
+        if self.signal_data_time is not None and self.signal_data_amplitude is not None:
+            self.sampling.plot_frequency_domain(self.graph3, self.signal_data_time, self.signal_data_amplitude)        
+
     def load_signal(self): 
          file_path = self.load_instance.browse_signals() 
          if file_path: 
@@ -102,10 +129,15 @@ class MainWindow(QMainWindow):
               # For example, load the signal data into a graph 
               try: 
                   signal_data = np.loadtxt(file_path, delimiter=',', skiprows=1) 
-                  self.graph1.set_signal(signal_data[:, 0], signal_data[:, 1]) 
+                  self.signal_data_time = signal_data[:, 0]
+                  self.signal_data_amplitude = signal_data[:, 1]
+                  self.graph1.set_signal(self.signal_data_time,self.signal_data_amplitude ) 
+              
+                  self.sampling.update_sampling(self.graph3, self.signal_data_time, self.signal_data_amplitude,self.sample_rate)
+                  self.sampling.plot_frequency_domain(self.graph3, self.signal_data_time, self.signal_data_amplitude)
+
               except Exception as e: 
                   QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
-
     def rewind_signal(self):        
         pass
 
@@ -118,6 +150,7 @@ class MainWindow(QMainWindow):
     def toggle_play_pause(self): 
         self.graph1.toggle_play_pause() 
         self.graph2.toggle_play_pause() 
+        self.graph3.toggle_play_pause() 
         if self.graph1.is_paused: 
             self.play.setIcon(self.play_icon) 
         else: 

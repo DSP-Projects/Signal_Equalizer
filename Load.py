@@ -9,7 +9,7 @@ class Load:
 
     @pyqtSlot()
     def browse_signals(self):
-        self.file_path, _ = QFileDialog.getOpenFileName(None, "Open Signal File", "", "Signal Files (*.csv )")
+        self.file_path, _ = QFileDialog.getOpenFileName(None, "Open Signal File", "", )
         if self.file_path:
             self.file_extension = self.file_path.split('.')[-1].lower()
             if self.check_extension():
@@ -18,7 +18,7 @@ class Load:
             QMessageBox.warning(None, "No file selected", "Please select a signal file to upload.")
 
     def check_extension(self):
-        if self.file_extension not in ['csv', 'edf', 'hdf5']:
+        if self.file_extension not in ['csv', 'edf', 'hdf5','wav']:
             QMessageBox.warning(None, "Unsupported File", "The selected file type is not supported.")
         else:
             self.file_path_list.append(self.file_path)
