@@ -2,8 +2,8 @@ from Mode import Mode
 import math
 class UniformMode(Mode):
     
-    def __init__(self, sliders_widget, num_of_sliders: int=10):
-        super().__init__(sliders_widget, num_of_sliders)
+    def __init__(self, sliders_widget,sample_instance, graph2,graph3,  num_of_sliders: int=10):
+        super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3)
         self.freq_ranges = [[] for i in range (10)]
         
     
@@ -24,10 +24,9 @@ class UniformMode(Mode):
                 elif comp > range_end:
                      break
 
-    def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_mag, freq_list, freq_phase):
+    def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
         # Apply gain to the frequencies in this range 
         freq_mag= [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
-        signal= self.send_reconstruct(freq_mag, freq_phase)
-        return signal
-    
+        self.plot_inverse_fourier(freq_mag,freq_phase,self.time, self.graph2)
+        self.plot_fourier_domain(freq_list, freq_mag)

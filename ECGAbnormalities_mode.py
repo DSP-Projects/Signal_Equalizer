@@ -4,8 +4,9 @@ import sys
 import numpy as np
 from PyQt5.QtCore import Qt
 
-class ECGAbnormalities:
-    def __init__(self, sliders_widget, num_of_sliders=4):
+class ECGAbnormalities(Mode):
+    def __init__(self, sliders_widget, sample_instance,graph2,graph3,  num_of_sliders=4):
+        super().__init__(sliders_widget, num_of_sliders, sample_instance, graph2,graph3)
         self.sliders_widget = sliders_widget
         self.num_of_sliders = num_of_sliders
         
@@ -29,10 +30,9 @@ class ECGAbnormalities:
         for i, freq in enumerate(freq_list):
             if low_freq <= abs(freq) <= high_freq:
                 freq_mag[i] *= gain_factor
+        self.plot_inverse_fourier(self.time, self.graph2)
+        self.plot_fourier_domain(freq_list, freq_mag)
+    
 
-        # Reconstruct the signal with updated magnitudes and phases
-        modified_signal = self.send_reconstruct(freq_mag, freq_phase)
-        
-        return modified_signal
 
     

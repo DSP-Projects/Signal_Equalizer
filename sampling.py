@@ -28,33 +28,33 @@ class Sampling:
     def set_scale(self, audiogram_scale):
         """Toggle the frequency scale between linear and audiogram."""
         self.is_audiogram_scale = audiogram_scale
+    
+    def compute_fft(self, signal_data_time, signal_data_amplitude):
+     if signal_data_amplitude :
+      fft_result = np.fft.fft(signal_data_amplitude)
+      frequencies = np.fft.fftfreq(len(fft_result), (signal_data_time[1] - signal_data_time[0]))
+    
+      magnitudes = np.abs(fft_result)
+      phases = np.angle(fft_result)
+    
+      positive_frequencies = frequencies > 0
+     return frequencies[positive_frequencies], magnitudes[positive_frequencies], phases[positive_frequencies]
 
-    def plot_frequency_domain(self, graph, signal_data_time, signal_data_amplitude):
-        if signal_data_amplitude is not None:
-            fft_result = np.fft.fft(signal_data_amplitude)
-            frequencies = np.fft.fftfreq(len(fft_result), (signal_data_time[1] - signal_data_time[0]))
-            magnitudes = np.abs(fft_result)
-            self.phases = np.angle(fft_result)
-            positive_frequencies = frequencies > 0
-            self.frequencies = frequencies[positive_frequencies]
-            self.magnitudes = magnitudes[positive_frequencies]
-            graph.clear_signal()
+    def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
+     graph.clear_signal()
+     
+     if is_audiogram_scale:
+        log_magnitude = 20 * np.log10(magnitudes + 1e-10)  # Avoid log(0)
+        plot_data = (frequencies, log_magnitude)
+     else:
+        plot_data = (frequencies, magnitudes)
 
-            if self.is_audiogram_scale:
-                
-                # Plot using logarithmic scale for magnitudes
-                log_magnitude = 20 * np.log10(self.magnitudes+ 1e-10)  # Avoid log(0)
-                plot_data = ( self.frequencies, log_magnitude)
-            else:
-                # Use linear scale
-                plot_data = (self.frequencies, self.magnitudes)
-
-            original_plot = pg.PlotDataItem(
-                plot_data[0],  # frequencies
-                plot_data[1],  # magnitudes
-                pen=pg.mkPen('b', width=2)
-            )
-            graph.graphWidget.addItem(original_plot)
+     original_plot = pg.PlotDataItem(
+        plot_data[0],  # frequencies
+        plot_data[1],  # magnitudes
+        pen=pg.mkPen('b', width=2)
+    )
+     graph.graphWidget.addItem(original_plot)
 
     def get_frequencies(self):
         """Return the frequencies array."""

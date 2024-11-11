@@ -6,8 +6,8 @@ from PyQt5.QtCore import Qt
 
 class AnimalMode(Mode):
     
-    def __init__(self, sliders_widget, num_of_sliders: int=4):
-            super().__init__(sliders_widget, num_of_sliders)
+    def __init__(self, sliders_widget,sample_instance,graph2,graph3,  num_of_sliders: int=4):
+            super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3)
             self.freq_ranges =  [(0, 170), (170, 250), (250, 400), (400, 1000)]
             
 
@@ -15,6 +15,6 @@ class AnimalMode(Mode):
             gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
             # Apply gain to the frequencies in this range 
             freq_mag = [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
-            signal= self.send_reconstruct(freq_mag, freq_phase)
-            return signal
+            self.plot_inverse_fourier(self.time, self.graph2)
+            self.plot_fourier_domain(freq_list, freq_mag)
                         

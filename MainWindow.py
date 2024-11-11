@@ -13,6 +13,8 @@ from sampling import Sampling
 import numpy as np
 from UniformMode import UniformMode
 from MusicMode import MusicMode
+from ECGAbnormalities_mode import ECGAbnormalities
+from AnimalMode import AnimalMode
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -27,15 +29,12 @@ class MainWindow(QMainWindow):
         self.scale_combo_box = self.findChild(QComboBox, 'scale')
         self.scale_combo_box.setCurrentIndex(0)  # Set default to "Linear Scale"
         self.scale_combo_box.currentIndexChanged.connect(self.change_scale)
-
-
         self.sampling = Sampling()
-
         self.signal=None 
         self.sample_rate = 1000 
-    #     self.mode_chosen= self.findChild('QComboBox', "Mode")
-    #     self.mode_chosen.IndexChanged.connect(self.change_mode)
+    
         self.mode_chosen= self.findChild(QComboBox, "mode")
+        self.mode_chosen.setCurrentIndex(0)
         self.mode_chosen.currentIndexChanged.connect(self.change_mode)
         self.mode_instance=None
         self.sliders_widget= self.findChild(QWidget, 'slidersWidget') 
@@ -116,15 +115,18 @@ class MainWindow(QMainWindow):
     def change_scale(self):
         """Update the graph to use either linear or audiogram scale based on combo box selection."""
         selected_scale = self.scale_combo_box.currentText()
-        
+       
         if selected_scale == "Audiogram Scale":
             self.sampling.set_scale(True)  # Set to audiogram (logarithmic) scale
+            self.mode_instance.set_is_audiogram(True)
+            is_audiogram= True
         else:
             self.sampling.set_scale(False)  # Set to linear scale
+            is_audiogram= False
 
         # Re-plot frequency domain with the selected scale
         if self.signal_data_time is not None and self.signal_data_amplitude is not None:
-            self.sampling.plot_frequency_domain(self.graph3, self.signal_data_time, self.signal_data_amplitude)        
+            self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), is_audiogram, self.graph3)        
 
     def load_signal(self): 
          file_path = self.load_instance.browse_signals() 
@@ -133,15 +135,16 @@ class MainWindow(QMainWindow):
               # Handle the loaded signal 
               # For example, load the signal data into a graph 
               try: 
-                  
-                  self.signal=Signal(3,file_path)
-                  self.graph1.set_signal(self.signal.signal_data_time,self.signal.signal_data_amplitude ) 
-              
+                  print("enter")
+                  self.signal=Signal(3,file_path) 
+                  print("after enter")
                   self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
-                  self.sampling.plot_frequency_domain(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude)
-
+                  print("before")             
+                  self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
+                  print("after")  
+                  self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
                   self.signal=Signal(1,file_path)
-                #   signal_data = np.loadtxt(file_path, delimiter=',', skiprows=1) 
+                  self.mode_instance.set_time(self.signal.signal_data_time)
                   self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
               except Exception as e: 
                   QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
@@ -167,15 +170,16 @@ class MainWindow(QMainWindow):
         print(index)
         match index:
             case 0: #uniform
-                #instatantiate object from uniform mode class and apply changes onto it
-                self.mode_instance= UniformMode( self.sliders_widget)
-                
+                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3)     
             case 1: #musical 
-                self.mode_instance= MusicMode( self.sliders_widget)
+                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3)
             case 2: #animal
-                pass
+                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3)
             case 4: #ECG
-                pass
+                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3)
+       
+    
+    
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
