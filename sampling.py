@@ -30,15 +30,18 @@ class Sampling:
         self.is_audiogram_scale = audiogram_scale
     
     def compute_fft(self, signal_data_time, signal_data_amplitude):
-     if signal_data_amplitude :
-      fft_result = np.fft.fft(signal_data_amplitude)
-      frequencies = np.fft.fftfreq(len(fft_result), (signal_data_time[1] - signal_data_time[0]))
-    
-      magnitudes = np.abs(fft_result)
-      phases = np.angle(fft_result)
-    
-      positive_frequencies = frequencies > 0
-     return frequencies[positive_frequencies], magnitudes[positive_frequencies], phases[positive_frequencies]
+
+        fft_result = np.fft.fft(signal_data_amplitude)
+        frequencies = np.fft.fftfreq(len(fft_result), (signal_data_time[1] - signal_data_time[0]))
+        
+        magnitudes = np.abs(fft_result)
+        phases = np.angle(fft_result)
+        
+        positive_frequencies = frequencies > 0
+
+        self.frequencies=frequencies[positive_frequencies]
+        self.magnitudes=magnitudes[positive_frequencies]
+        self.phases= phases[positive_frequencies]
 
     def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
      graph.clear_signal()
@@ -55,6 +58,7 @@ class Sampling:
         pen=pg.mkPen('b', width=2)
     )
      graph.graphWidget.addItem(original_plot)
+     graph.graphWidget.setXRange(0, 1000)
 
     def get_frequencies(self):
         """Return the frequencies array."""

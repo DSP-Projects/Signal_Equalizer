@@ -11,10 +11,18 @@ class AnimalMode(Mode):
             self.freq_ranges =  [(0, 170), (170, 250), (250, 400), (400, 1000)]
             
 
-    def update_mode_upon_sliders_change(self, slider_index, gain_value,freq_list, freq_mag,freq_phase):
-            gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
-            # Apply gain to the frequencies in this range 
-            freq_mag = [freq*gain_factor for freq in freq_mag if freq_list.index(freq) in range(self.freq_ranges[slider_index])]
-            self.plot_inverse_fourier(self.time, self.graph2)
-            self.plot_fourier_domain(freq_list, freq_mag)
+    def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
+        gain_factor = (gain_value / max(self.gain_limits)) * 2  # Normalize gain to a 0-2 factor
+
+        # Get the frequency range for this slider
+        freq_range = self.freq_ranges[slider_index]
+
+        # Apply gain only to frequencies within the specified range
+        freq_mag = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
+                                freq_mag * gain_factor, 
+                                freq_mag)
+        
+        # Plot the updated frequency domain
+        self.plot_inverse_fourier(freq_mag, freq_phase, self.time, self.graph2)
+        self.plot_fourier_domain(freq_list, freq_mag)
                         

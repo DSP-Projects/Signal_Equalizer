@@ -30,7 +30,7 @@ class Mode(ABC):
             self.sliders_list.append(slider)
         
         for idx, slider in enumerate(self.sliders_list):
-            slider.valueChanged.connect(lambda value, idx=idx: self.update_mode_upon_sliders_change(idx, value, self.sample.freq_list, self.sample.freq_mag, self.sample.freq_phase))
+            slider.valueChanged.connect(lambda value, idx=idx: self.update_mode_upon_sliders_change(idx, value, self.sample.frequencies, self.sample.magnitudes, self.sample.phases))
 
         layout.setSpacing(30)
 
@@ -58,7 +58,7 @@ class Mode(ABC):
         self.reconstruct.inverse_fourier(time,graph)
 
     def plot_fourier_domain(self, freq_list, freq_mag):
-        self.sample.plot_frequency_domain( freq_list, freq_mag, is_audiogram= self.is_audiogram, graph3= self.graph3)
+        self.sample.plot_frequency_domain( freq_list, freq_mag, self.is_audiogram,self.graph3)
 
     def set_time(self, time):
         self.time = time

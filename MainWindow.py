@@ -125,7 +125,7 @@ class MainWindow(QMainWindow):
             is_audiogram= False
 
         # Re-plot frequency domain with the selected scale
-        if self.signal_data_time is not None and self.signal_data_amplitude is not None:
+        if self.signal.signal_data_time is not None and self.signal.signal_data_amplitude is not None:
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), is_audiogram, self.graph3)        
 
     def load_signal(self): 
@@ -139,13 +139,16 @@ class MainWindow(QMainWindow):
                   self.signal=Signal(3,file_path) 
                   print("after enter")
                   self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
-                  print("before")             
-                  self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
-                  print("after")  
-                  self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
+                  print("before")  
+                  print(self.signal.signal_data_amplitude)
+                  if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
+                        self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
+                        print("after")  
+                        self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
                   self.signal=Signal(1,file_path)
                   self.mode_instance.set_time(self.signal.signal_data_time)
                   self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
+                  self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
               except Exception as e: 
                   QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
     def rewind_signal(self):        

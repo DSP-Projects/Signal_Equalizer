@@ -19,20 +19,19 @@ class ECGAbnormalities(Mode):
         }
         
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
-       
-        # Calculate gain factor from the slider value (normalized to 0-2 range)
-        gain_factor = (gain_value / 50)  # Normalizing around 1x default
+        gain_factor = (gain_value / max(self.gain_limits)) * 2  # Normalize gain to a 0-2 factor
+
+        # Get the frequency range for this slider
+        freq_range = self.freq_ranges[slider_index]
+
+        # Apply gain only to frequencies within the specified range
+        freq_mag = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
+                                freq_mag * gain_factor, 
+                                freq_mag)
         
-        # Get the frequency range for the specified slider index
-        low_freq, high_freq = self.freq_ranges.get(slider_index, (0, 0))
-        
-        # Apply gain factor to the frequency components in the specified range
-        for i, freq in enumerate(freq_list):
-            if low_freq <= abs(freq) <= high_freq:
-                freq_mag[i] *= gain_factor
-        self.plot_inverse_fourier(self.time, self.graph2)
+        # Plot the updated frequency domain
+        self.plot_inverse_fourier(freq_mag, freq_phase, self.time, self.graph2)
         self.plot_fourier_domain(freq_list, freq_mag)
-    
 
 
     
