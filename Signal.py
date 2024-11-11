@@ -3,7 +3,7 @@ from scipy.io import wavfile
 import numpy as np
 class Signal:
     def __init__(self, graph_num,file_path):
-        self.file_extension = self.file_path.split('.')[-1].lower()
+        self.file_extension = file_path.split('.')[-1].lower()
         self.signal_data_amplitude=None
         self.signal_data_time=None
         self.sample_rate_wav=None
@@ -14,11 +14,16 @@ class Signal:
             self.signal_data_time = csvFile.iloc[:3000, 0].values
             self.signal_data_amplitude = csvFile.iloc[:3000, 1].values
             self.graph_num= graph_num
+
         elif(self.file_extension=="wav"):
             self.sample_rate_wav, signal = wavfile.read(file_path)
             duration = len(signal) / self.sample_rate_wav
-            self.signal_data_time = np.linspace(0, duration, len(signal)) 
-            self.signal_data_amplitude=signal
+            self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
+            self.signal_data_amplitude= np.array(signal[:, 0])
+            print(self.signal_data_amplitude.shape)
+            print(self.signal_data_time.shape)
+            print(type(self.signal_data_amplitude))
+            print(type(self.signal_data_time))
 
     def set_signal_graph_num(self, new_graph_num):
         self.graph_num = new_graph_num

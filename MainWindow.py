@@ -30,8 +30,7 @@ class MainWindow(QMainWindow):
 
         self.sampling = Sampling()
 
-        self.signal_data_time = None
-        self.signal_data_amplitude = None
+        self.signal=None 
         self.sample_rate = 1000 
     #     self.mode_chosen= self.findChild('QComboBox', "Mode")
     #     self.mode_chosen.IndexChanged.connect(self.change_mode)
@@ -40,7 +39,7 @@ class MainWindow(QMainWindow):
     #     self.layout.addWidget(spectrogram_plot.canvas)
 
 
-
+        self.signal=None
         self.zoom_in_button = self.findChild(QPushButton, 'zoomIn') 
         self.zoom_in_button.clicked.connect(self.zoom_in) 
         self.zoom_out_button = self.findChild(QPushButton, 'zoomOut') 
@@ -124,18 +123,21 @@ class MainWindow(QMainWindow):
 
     def load_signal(self): 
          file_path = self.load_instance.browse_signals() 
+         self.clear_signals()
          if file_path: 
               # Handle the loaded signal 
               # For example, load the signal data into a graph 
               try: 
-                  signal_data = np.loadtxt(file_path, delimiter=',', skiprows=1) 
-                  self.signal_data_time = signal_data[:, 0]
-                  self.signal_data_amplitude = signal_data[:, 1]
-                  self.graph1.set_signal(self.signal_data_time,self.signal_data_amplitude ) 
+                  
+                  self.signal=Signal(3,file_path)
+                  self.graph1.set_signal(self.signal.signal_data_time,self.signal.signal_data_amplitude ) 
               
-                  self.sampling.update_sampling(self.graph3, self.signal_data_time, self.signal_data_amplitude,self.sample_rate)
-                  self.sampling.plot_frequency_domain(self.graph3, self.signal_data_time, self.signal_data_amplitude)
+                  self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
+                  self.sampling.plot_frequency_domain(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude)
 
+                  self.signal=Signal(1,file_path)
+                #   signal_data = np.loadtxt(file_path, delimiter=',', skiprows=1) 
+                  self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
               except Exception as e: 
                   QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
     def rewind_signal(self):        
