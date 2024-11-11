@@ -6,6 +6,7 @@ from Reconstruction import Reconstruction
 
 class Mode(ABC):
     def __init__(self, sliders_widget, num_of_sliders, sample_instance, graph2, graph3):
+        self.clear_sliders(sliders_widget)
         self.freq_ranges= None
         self.sliders_widget=sliders_widget
         self.sliders_list=[]
@@ -28,13 +29,12 @@ class Mode(ABC):
             slider.setValue(5)
             layout.addWidget(slider)
             self.sliders_list.append(slider)
-        
-        for idx, slider in enumerate(self.sliders_list):
-            slider.valueChanged.connect(lambda value, idx=idx: self.update_mode_upon_sliders_change(idx, value, self.sample.frequencies, self.sample.magnitudes, self.sample.phases))
-
         layout.setSpacing(30)
 
-
+        for idx, slider in enumerate(self.sliders_list):
+            slider.valueChanged.connect(lambda value, idx=idx: self.update_mode_upon_sliders_change(idx, value, self.sample.frequencies, self.sample.magnitudes, self.sample.phases))
+            
+       
 
     @abstractmethod
     def update_mode_upon_sliders_change(self, slider_no, new_value, freq_list, freq_mag, freq_phase):
@@ -65,3 +65,11 @@ class Mode(ABC):
 
     def set_is_audiogram(self, is_audiogram):
         self.is_audiogram= is_audiogram
+
+    def clear_sliders(self, sliders_widget):
+        layout = sliders_widget.layout()
+        if layout is not None:
+            while layout.count():
+                child = layout.takeAt(0)
+                if child.widget():
+                    child.widget().deleteLater()

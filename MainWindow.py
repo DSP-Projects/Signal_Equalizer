@@ -86,6 +86,7 @@ class MainWindow(QMainWindow):
         self.pause_icon = QIcon("icons/pause (2).png")
         self.play.setIcon(self.pause_icon)
 
+        #self.change_mode(0)
 
     def set_speed_value(self, value): 
         self.graph1.set_speed(value) 
@@ -132,25 +133,10 @@ class MainWindow(QMainWindow):
          file_path = self.load_instance.browse_signals() 
          self.clear_signals()
          if file_path: 
-              # Handle the loaded signal 
-              # For example, load the signal data into a graph 
               try: 
-                  print("enter")
-                  self.signal=Signal(3,file_path) 
-                  print("after enter")
-                  self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
-                  print("before")  
-                  print(self.signal.signal_data_amplitude)
-                  if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
-                        self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
-                        print("after")  
-                        self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
-                  self.signal=Signal(1,file_path)
-                  self.mode_instance.set_time(self.signal.signal_data_time)
-                  self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
-                  self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
+                self.prepare_load(file_path)
               except Exception as e: 
-                  QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
+                QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
     def rewind_signal(self):        
         pass
 
@@ -180,12 +166,28 @@ class MainWindow(QMainWindow):
                     self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3)
             case 4: #ECG
                     self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3)
-       
     
+    def set_default(self):
+        file_path="output4.csv"
+        self.prepare_load(file_path)
+           
+    def prepare_load(self, file_path):
+        self.signal=Signal(3,file_path) 
+        self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
+        print(self.signal.signal_data_amplitude)
+        if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
+            self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
+            self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
+        self.signal=Signal(1,file_path)
+        self.change_mode(0)
+        self.mode_instance.set_time(self.signal.signal_data_time)
+        self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
+        self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)      
     
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    window.set_default()
     sys.exit(app.exec_())

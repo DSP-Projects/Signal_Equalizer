@@ -26,6 +26,7 @@ class UniformMode(Mode):
                      break
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
+        self.init_mode(freq_list)
         gain_factor = (gain_value / max(self.gain_limits)) * 2  # Normalize gain to a 0-2 factor
 
         # Get the frequency range for this slider
