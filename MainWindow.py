@@ -10,7 +10,8 @@ from PyQt5.QtGui import QIcon
 from Load import Load
 from Signal import Signal
 import numpy as np
-
+from UniformMode import UniformMode
+from MusicMode import MusicMode
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -18,8 +19,10 @@ class MainWindow(QMainWindow):
         loadUi("SignalEqualizer.ui", self)
         self.setWindowTitle("Signal Equalizer")
 
-    #     self.mode_chosen= self.findChild('QComboBox', "Mode")
-    #     self.mode_chosen.IndexChanged.connect(self.change_mode)
+        self.mode_chosen= self.findChild(QComboBox, "mode")
+        self.mode_chosen.currentIndexChanged.connect(self.change_mode)
+        self.mode_instance=None
+        self.sliders_widget= self.findChild(QWidget, 'slidersWidget') 
         
     #     spectrogram_plot = Spectrogram()
     #     self.layout.addWidget(spectrogram_plot.canvas)
@@ -124,13 +127,14 @@ class MainWindow(QMainWindow):
             self.play.setIcon(self.pause_icon)
     
     def change_mode(self, index):
+        print(index)
         match index:
-
             case 0: #uniform
                 #instatantiate object from uniform mode class and apply changes onto it
-                pass
+                self.mode_instance= UniformMode( self.sliders_widget)
+                
             case 1: #musical 
-                pass
+                self.mode_instance= MusicMode( self.sliders_widget)
             case 2: #animal
                 pass
             case 4: #ECG

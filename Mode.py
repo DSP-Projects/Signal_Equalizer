@@ -22,7 +22,7 @@ class Mode(ABC):
             layout.addWidget(slider)
             self.sliders_list.append(slider)
 
-        layout.setSpacing(10)
+        layout.setSpacing(30)
 
     @abstractmethod
     def init_mode(self, freq_list):

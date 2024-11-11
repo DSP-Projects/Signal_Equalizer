@@ -98,7 +98,7 @@ QPushButton:pressed {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/icons8-upload-24.png</normaloff>icons/icons8-upload-24.png</iconset>
+             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-upload-24.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-upload-24.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -165,7 +165,7 @@ QPushButton:pressed {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/icons8-remove-document-32.png</normaloff>icons/icons8-remove-document-32.png</iconset>
+             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-remove-document-32.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-remove-document-32.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -230,6 +230,12 @@ QPushButton:pressed {
            <property name="text">
             <string>Audio Before</string>
            </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
@@ -286,6 +292,12 @@ QPushButton:pressed {
            </property>
            <property name="text">
             <string>Audio After</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -710,12 +722,12 @@ background-color: rgb(168, 170, 175);
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalGraphs_4" stretch="0,0">
+       <layout class="QVBoxLayout" name="verticalGraphs_4" stretch="0">
         <property name="spacing">
          <number>20</number>
         </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0,0,0,0,0,0">
+         <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0,0,0,0,0,0,0">
           <property name="spacing">
            <number>20</number>
           </property>
@@ -832,7 +844,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/zoom-in-64.png</normaloff>icons/zoom-in-64.png</iconset>
+                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-in-64.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-in-64.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -896,7 +908,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/play.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/play.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -952,7 +964,7 @@ QRadioButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/icons8-rewind-50.png</normaloff>icons/icons8-rewind-50.png</iconset>
+                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-rewind-50.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-rewind-50.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1016,7 +1028,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/zoom-out-32.png</normaloff>icons/zoom-out-32.png</iconset>
+                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-out-32.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-out-32.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1189,6 +1201,44 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
            </widget>
           </item>
           <item>
+           <widget class="QWidget" name="slidersWidget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background: rgba(74, 74, 74, 0);
+</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="leftMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_">
+               <property name="font">
+                <font>
+                 <family>Overpass SemiBold</family>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+
+
+</string>
+               </property>
+               <property name="text">
+                <string>Frequency Ranges:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <spacer name="verticalSpacer_6">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1205,44 +1255,6 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
            </spacer>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QWidget" name="slidersWidget" native="true">
-          <property name="styleSheet">
-           <string notr="true">background: rgba(74, 74, 74, 0);
-</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <property name="leftMargin">
-            <number>20</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_">
-             <property name="font">
-              <font>
-               <family>Overpass SemiBold</family>
-               <pointsize>-1</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">padding:0 0px;
-text-align: top;
-color:#2e556d;
-font-size: 20px;
-font-weiht:bold;
-
-
-</string>
-             </property>
-             <property name="text">
-              <string>Frequency Ranges:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
         </item>
        </layout>
       </item>

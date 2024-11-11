@@ -11,6 +11,9 @@ class MusicMode(Mode):
             self.freq_ranges =  [(0, 170), (170, 250), (250, 400), (400, 1000)]
             
 
+    def init_mode(self, freq_list):
+           pass
+        
     def update_mode_upon_sliders_change(self, slider_index, gain_value,freq_list, freq_mag,freq_phase):
             gain_factor = (gain_value / max(self.gain_limits))*2  # Normalize gain to a 0-2 factor
             # Apply gain to the frequencies in this range 
