@@ -45,7 +45,7 @@ class Sampling:
 
     def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
      graph.clear_signal()
-     
+     self.magnitudes= magnitudes
      if is_audiogram_scale:
         log_magnitude = 20 * np.log10(magnitudes + 1e-10)  # Avoid log(0)
         plot_data = (frequencies, log_magnitude)
@@ -58,7 +58,7 @@ class Sampling:
         pen=pg.mkPen('b', width=2)
     )
      graph.graphWidget.addItem(original_plot)
-     graph.graphWidget.setXRange(0, 1000)
+     graph.graphWidget.setXRange(0, frequencies[-1])
 
     def get_frequencies(self):
         """Return the frequencies array."""
