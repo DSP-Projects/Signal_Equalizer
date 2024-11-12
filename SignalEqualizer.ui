@@ -45,7 +45,7 @@
           <widget class="QPushButton" name="browseFile">
            <property name="font">
             <font>
-             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <family>-apple-system</family>
              <pointsize>-1</pointsize>
             </font>
            </property>
@@ -96,7 +96,7 @@ QPushButton:pressed {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-upload-24.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-upload-24.png</iconset>
+             <normaloff>icons/icons8-upload-24.png</normaloff>icons/icons8-upload-24.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -110,7 +110,7 @@ QPushButton:pressed {
           <widget class="QPushButton" name="removeFile">
            <property name="font">
             <font>
-             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <family>-apple-system</family>
              <pointsize>-1</pointsize>
             </font>
            </property>
@@ -161,7 +161,7 @@ QPushButton:pressed {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-remove-document-32.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-remove-document-32.png</iconset>
+             <normaloff>icons/icons8-remove-document-32.png</normaloff>icons/icons8-remove-document-32.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -589,7 +589,7 @@ border:None;</string>
           <widget class="QPushButton" name="audioBefore">
            <property name="font">
             <font>
-             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <family>-apple-system</family>
              <pointsize>-1</pointsize>
             </font>
            </property>
@@ -667,7 +667,7 @@ border:None;</string>
           <widget class="QPushButton" name="audioAfter">
            <property name="font">
             <font>
-             <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+             <family>-apple-system</family>
              <pointsize>-1</pointsize>
             </font>
            </property>
@@ -818,11 +818,14 @@ QPushButton:pressed {
               </property>
               <property name="font">
                <font>
-                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+                <family>-apple-system</family>
                </font>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;zoom in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
@@ -865,7 +868,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-in-64.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-in-64.png</iconset>
+                <normaloff>icons/zoom-in-64.png</normaloff>icons/zoom-in-64.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -879,7 +882,7 @@ QPushButton:pressed {
              <widget class="QPushButton" name="play">
               <property name="font">
                <font>
-                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+                <family>-apple-system</family>
                </font>
               </property>
               <property name="cursor">
@@ -926,7 +929,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/play.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/play.png</iconset>
+                <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -937,12 +940,23 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton">
+             <widget class="QPushButton" name="radioButton">
+              <property name="font">
+               <font>
+                <family>-apple-system</family>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;replay&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="styleSheet">
-               <string notr="true">QRadioButton{
+               <string notr="true">QPushButton{
 appearance: button;
 backface-visibility: hidden;
   background-color: #3388b0;
@@ -969,11 +983,11 @@ user-select: none;
 touch-action: manipulation;
 width: 25px; /* Reduced width to 200 pixels */
 }
-QRadioButton:hover {
+QPushButton:hover {
     background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
 }
 
-QRadioButton:pressed {
+QPushButton:pressed {
     background-color: #1b4b61;    /* Darker blue when pressed */
 }</string>
               </property>
@@ -982,7 +996,7 @@ QRadioButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-rewind-50.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/icons8-rewind-50.png</iconset>
+                <normaloff>icons/icons8-rewind-50.png</normaloff>icons/icons8-rewind-50.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -996,11 +1010,14 @@ QRadioButton:pressed {
              <widget class="QPushButton" name="zoomOut">
               <property name="font">
                <font>
-                <family>-apple-system,system-ui,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif</family>
+                <family>-apple-system</family>
                </font>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;zoom out&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
@@ -1043,7 +1060,7 @@ QPushButton:pressed {
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-out-32.png</normaloff>D:/3rd year, 1st semester/DSP/Signal_Equalizer-/icons/zoom-out-32.png</iconset>
+                <normaloff>icons/zoom-out-32.png</normaloff>icons/zoom-out-32.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1151,36 +1168,22 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
           <item>
            <layout class="QHBoxLayout" name="spectrogramLayout_4">
             <item>
-             <widget class="PlotWidget" name="widget" native="true">
+             <widget class="QWidget" name="spectogram1" native="true">
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>350</width>
                 <height>80</height>
                </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
-    border-radius: 15px; /* Curved borders */
-    border: 2px solid #ffffff; /* 3D outline */
-
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="PlotWidget" name="spectogram2" native="true">
+             <widget class="QWidget" name="spectogram2" native="true">
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>350</width>
                 <height>80</height>
                </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
-    border-radius: 15px; /* Curved borders */
-    border: 2px solid #ffffff; /* 3D outline */
-
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
               </property>
              </widget>
             </item>
