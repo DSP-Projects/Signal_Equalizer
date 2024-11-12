@@ -1175,6 +1175,12 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
                 <height>80</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>250</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
@@ -1183,6 +1189,12 @@ border: 1px solid #3498db; /* Border of the handle when pressed */
                <size>
                 <width>350</width>
                 <height>80</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>250</height>
                </size>
               </property>
              </widget>

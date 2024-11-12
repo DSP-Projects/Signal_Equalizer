@@ -74,8 +74,25 @@ class Graph:
         else:
             self.timer.start(100)
 
-    def toggle_rewind(self):
-        pass
+    def rewind(self):
+       if not self.is_paused:    
+            self.current_frame = 0 
+            # self.clear_signal()
+            self.timer.start() 
+            self.is_paused = False  
+            self.update_plot()
+
+    def zoom_in(self):
+       
+        self.graphWidget.getViewBox().scaleBy((0.9, 0.9))
+        self.current_frame-=1
+        self.update_plot()
+
+
+    def zoom_out(self):
+        self.graphWidget.getViewBox().scaleBy((1.1,1.1))    
+        self.current_frame-=1
+        self.update_plot()    
 
     def clear_signal(self):
         self.graphWidget.clear()

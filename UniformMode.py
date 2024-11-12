@@ -3,10 +3,10 @@ import math
 import numpy as np
 class UniformMode(Mode):
     
-    def __init__(self, sliders_widget,sample_instance, graph2,graph3, spectrogram_widget2,  num_of_sliders: int=10):
-        super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2)
+    def __init__(self, sliders_widget,sample_instance, graph2,graph3, graph1, spectrogram_widget2,  num_of_sliders: int=10):
+        super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2, graph1)
         self.freq_ranges = [[] for i in range (10)]
-        
+        self.old_value=5 #value of slider before change
     
     def init_mode(self, freq_list):
         # Sort frequencies and determine ranges
@@ -18,7 +18,6 @@ class UniformMode(Mode):
         for i in range(10): 
             range_start = int(min_freq + i * step_size)
             range_end = int(range_start + step_size)
-            print(f"range_start, range_end{range_start, range_end}")
             for comp in freq_list:
                 if range_start <= comp < range_end:
                     self.freq_ranges[i].append(comp)
@@ -27,16 +26,14 @@ class UniformMode(Mode):
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         self.init_mode(freq_list)
-        #print(self.freq_ranges)
-        gain_factor = (gain_value / max(self.gain_limits)) * 5  # Normalize gain to a 0-2 factor
+        gain_factor = gain_value/self.old_value # to handle slider values correctly 
+        self.old_value= gain_value
         # Get the frequency range for this slider
         freq_range = self.freq_ranges[slider_index]
-        print(f"freq_mag before{freq_mag}")
         # Apply gain only to frequencies within the specified range
         freq_mag = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
                                 freq_mag * gain_factor, 
                                 freq_mag)
-        print(f"freq_mag after{freq_mag}")
         # Plot the updated frequency domain
         self.plot_inverse_fourier(freq_mag, freq_phase, self.time, self.graph2)
         self.plot_fourier_domain(freq_list, freq_mag)

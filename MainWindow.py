@@ -47,6 +47,10 @@ class MainWindow(QMainWindow):
         self.spectrogram_output = Spectrogram()
 
 
+        self.audiobefore = self.findChild(QPushButton, 'audioBefore')
+        self.audiobefore.clicked.connect(self.audio_before)
+        self.audioafter = self.findChild(QPushButton, 'audioAfter')
+        self.audioafter.clicked.connect(self.audio_after)
         self.signal=None
         self.zoom_in_button = self.findChild(QPushButton, 'zoomIn') 
         self.zoom_in_button.clicked.connect(self.zoom_in) 
@@ -65,9 +69,9 @@ class MainWindow(QMainWindow):
         self.spectrogram_check = self.findChild(QCheckBox, 'spectogramCheck')
         self.spectrogram_check.stateChanged.connect(self.handle_checkbox_state)
         self.speed = self.findChild(QSlider, 'speedSlider')
-        self.speed.setMinimum(1)  # Set minimum zoom value
+        self.speed.setMinimum(10)  # Set minimum zoom value
         self.speed.setMaximum(200)  # Set maximum zoom value
-        self.speed.setValue(100)  # Set initial zoom value
+        self.speed.setValue(150)  # Set initial zoom value
         self.speed.valueChanged.connect(self.set_speed_value) 
 
         # self.toggle_stat_original_audio = self.findChild(QPushButton, 'audioBefore')
@@ -89,6 +93,12 @@ class MainWindow(QMainWindow):
         self.play_icon = QIcon("icons/play.png")
         self.pause_icon = QIcon("icons/pause (2).png")
         self.play.setIcon(self.pause_icon)
+
+        self.audiobefore.setIcon(self.pause_icon)
+        self.audioafter.setIcon(self.pause_icon)
+        self.current_icon = 1
+        self.audiobefore.setText('Pause')
+        self.audioafter.setText('Pause')
 
         #self.change_mode(0)
 
@@ -152,18 +162,39 @@ class MainWindow(QMainWindow):
               except Exception as e: 
                 QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
     def rewind_signal(self):        
-        pass
+        self.graph1.rewind()
+        self.graph2.rewind()
 
     def clear_signals(self): 
         self.graph1.clear_signal() 
         self.graph2.clear_signal() 
         self.graph3.clear_signal() 
+
+    def audio_before(self):
+        if self.current_icon == 1: 
+            self.audiobefore.setIcon(self.play_icon)
+            self.audiobefore.setText("Play")
+            self.current_icon = 2
+        else: 
+            self.audiobefore.setIcon(self.pause_icon) 
+            self.audiobefore.setText("Pause")   
+            self.current_icon = 1 
+
+    def audio_after(self):  
+        if self.current_icon == 1: 
+            self.audioafter.setIcon(self.play_icon)
+            self.audioafter.setText("Play")
+
+            self.current_icon = 2 
+        else:
+            self.audioafter.setIcon(self.pause_icon) 
+            self.audioafter.setText("Pause")
+            self.current_icon = 1    
     
 
     def toggle_play_pause(self): 
         self.graph1.toggle_play_pause() 
         self.graph2.toggle_play_pause() 
-        self.graph3.toggle_play_pause() 
         if self.graph1.is_paused: 
             self.play.setIcon(self.play_icon) 
         else: 
@@ -173,13 +204,13 @@ class MainWindow(QMainWindow):
         print(index)
         match index:
             case 0: #uniform
-                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)     
+                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)     
             case 1: #musical 
-                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)
+                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
             case 2: #animal
-                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3, self.spectrogram_widget2)
+                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
             case 4: #ECG
-                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)
+                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
     
     def set_default(self):
         file_path="output4.csv"
