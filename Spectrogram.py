@@ -16,29 +16,34 @@ class Spectrogram:
         """
         data: time series signal values
         """
-        f, t, Sxx = spectrogram(data, sampling_freq)  #returns sample frequencies, time samples, spectrogram  of data
-        Sxx_dB = 10 * np.log10(Sxx)
-        self.canvas.axes.clear()
-        img = self.canvas.axes.imshow(Sxx_dB, aspect='auto', origin='lower',
-                                            extent=[t.min(), t.max(), f.min(), f.max()],
-                                            cmap='viridis')
-        
-        self.canvas.axes.set_xlabel("Time [s]")
-        self.canvas.axes.set_ylabel("Frequency [Hz]")
-        self.canvas.axes.set_title("Spectrogram")
-        
-        self.canvas.figure.colorbar(img, ax=self.canvas.axes, label='Intensity [dB]')
-        
-        self.canvas.draw()
-
         if spectrogram_widget.layout() is None:
             layout = QVBoxLayout(spectrogram_widget)
             spectrogram_widget.setLayout(layout)
         else:
             layout = spectrogram_widget.layout()
+            # Remove previous widgets except self.canvas
+            for i in reversed(range(layout.count())):
+                widget = layout.itemAt(i).widget()
+                if widget is not self.canvas:
+                    widget.setParent(None)
 
-        # Add the canvas to the parent's layout
-        layout.addWidget(self.canvas)
+        # Clear and plot new data in the figure canvas
+        self.canvas.figure.clf()
+        self.canvas.axes = self.canvas.figure.add_subplot(111)
+        
+        f, t, Sxx = spectrogram(data, sampling_freq) #f: frequency, t: time, Sxx, spectrogram matrix
+        Sxx_dB = 10 * np.log10(Sxx)
+        
+        img = self.canvas.axes.imshow(Sxx_dB, aspect='auto', origin='lower',
+                                      extent=[t.min(), t.max(), f.min(), f.max()],
+                                      cmap='viridis')
+        self.canvas.axes.set_xlabel("Time [s]")
+        self.canvas.axes.set_ylabel("Frequency [Hz]")
+        self.canvas.axes.set_title("Spectrogram")
+        self.canvas.figure.colorbar(img, ax=self.canvas.axes, label='Intensity [dB]')
+        self.canvas.draw()
+        if layout.indexOf(self.canvas) == -1:
+            layout.addWidget(self.canvas)
 
 
     def hide_spectrogram(self):

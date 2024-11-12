@@ -3,8 +3,8 @@ import math
 import numpy as np
 class UniformMode(Mode):
     
-    def __init__(self, sliders_widget,sample_instance, graph2,graph3,  num_of_sliders: int=10):
-        super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3)
+    def __init__(self, sliders_widget,sample_instance, graph2,graph3, spectrogram_widget2,  num_of_sliders: int=10):
+        super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2)
         self.freq_ranges = [[] for i in range (10)]
         
     

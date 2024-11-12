@@ -43,8 +43,8 @@ class MainWindow(QMainWindow):
         self.mode_instance=None
         self.sliders_widget= self.findChild(QWidget, 'slidersWidget') 
         
-    #     spectrogram_plot = Spectrogram()
-    #     self.layout.addWidget(spectrogram_plot.canvas)
+        self.spectrogram_input = Spectrogram()
+        self.spectrogram_output = Spectrogram()
 
 
         self.signal=None
@@ -58,12 +58,12 @@ class MainWindow(QMainWindow):
         self.play.clicked.connect(self.toggle_play_pause)
         self.removefile = self.findChild(QPushButton, 'removeFile')
         self.removefile.clicked.connect(self.clear_signals)
-        self.rewind = self.findChild(QRadioButton, "radioButton")
+        self.rewind = self.findChild(QPushButton, "radioButton")
         self.rewind.clicked.connect(self.rewind_signal)
-        self.graph4 = self.findChild(PlotWidget, 'widget') 
-        self.graph5 = self.findChild(PlotWidget, 'spectogram2') 
-        self.checkbox = self.findChild(QCheckBox, 'spectogramCheck')
-        self.checkbox.stateChanged.connect(self.handle_checkbox_state)
+        self.spectrogram_widget1 = self.findChild(QWidget, 'spectogram1') 
+        self.spectrogram_widget2 = self.findChild(QWidget, 'spectogram2') 
+        self.spectrogram_check = self.findChild(QCheckBox, 'spectogramCheck')
+        self.spectrogram_check.stateChanged.connect(self.handle_checkbox_state)
         self.speed = self.findChild(QSlider, 'speedSlider')
         self.speed.setMinimum(1)  # Set minimum zoom value
         self.speed.setMaximum(200)  # Set maximum zoom value
@@ -81,8 +81,6 @@ class MainWindow(QMainWindow):
         self.graph1 = Graph(self.graph1, "Graph 1", "", "")
         self.graph2 = Graph(self.graph2, "Graph 2", "", "")
         self.graph3 = Graph(self.graph3,  "Frequency Domain", "Frequency (Hz)", "Magnitude")
-        self.graph4_instance = Graph(self.graph4, "Graph 4", "", "")
-        self.graph5_instance = Graph(self.graph5, "Graph 5", "", "")
         
 
 
@@ -109,13 +107,13 @@ class MainWindow(QMainWindow):
 
 
     def handle_checkbox_state(self): 
-        if self.checkbox.isChecked(): 
-            self.graph4.setVisible(False) 
-            self.graph5.setVisible(False) 
+        if self.spectrogram_check.isChecked(): 
+            self.spectrogram_widget1.setVisible(False) 
+            self.spectrogram_widget2.setVisible(False) 
             print("PlotWidgets are hidden") 
         else: 
-            self.graph4.setVisible(True) 
-            self.graph5.setVisible(True) 
+            self.spectrogram_widget1.setVisible(True) 
+            self.spectrogram_widget2.setVisible(True) 
             print("PlotWidgets are visible")
 
 
@@ -175,13 +173,13 @@ class MainWindow(QMainWindow):
         print(index)
         match index:
             case 0: #uniform
-                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3)     
+                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)     
             case 1: #musical 
-                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3)
+                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)
             case 2: #animal
-                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3)
+                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3, self.spectrogram_widget2)
             case 4: #ECG
-                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3)
+                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.spectrogram_widget2)
     
     def set_default(self):
         file_path="output4.csv"
@@ -196,7 +194,8 @@ class MainWindow(QMainWindow):
             self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
         self.signal=Signal(1,file_path)
-        
+        self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sample_rate, self.spectrogram_widget1)
+        self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sample_rate, self.spectrogram_widget2)
         self.mode_instance.set_time(self.signal.signal_data_time)
         self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
         self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)      

@@ -8,4 +8,5 @@ class Reconstruction:
         new_mag= np.fft.ifft(self.modified_fft).real
         print(new_mag)
         graph.set_signal(time, new_mag)
+        return new_mag
 

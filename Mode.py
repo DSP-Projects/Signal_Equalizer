@@ -3,9 +3,9 @@ from PyQt5.QtWidgets import QSlider, QVBoxLayout
 from PyQt5.QtCore import Qt
 import math 
 from Reconstruction import Reconstruction
-
+from Spectrogram import Spectrogram
 class Mode(ABC):
-    def __init__(self, sliders_widget, num_of_sliders, sample_instance, graph2, graph3):
+    def __init__(self, sliders_widget, num_of_sliders, sample_instance, graph2, graph3, spectrogram_widget2):
         self.clear_sliders(sliders_widget)
         # self.freq_ranges= None
         self.sliders_widget=sliders_widget
@@ -16,7 +16,9 @@ class Mode(ABC):
         self.graph2= graph2
         self.graph3= graph3
         self.is_audiogram= False
-        
+        self.sample_rate=1000
+        self.spectrogram_widget2= spectrogram_widget2
+        self.spectrogram2= Spectrogram()
       
         if self.sliders_widget.layout() is None:
             layout = QVBoxLayout(self.sliders_widget)
@@ -55,7 +57,8 @@ class Mode(ABC):
     def plot_inverse_fourier(self, freq_mag, freq_phase, time, graph):
         signal = self.send_reconstruct(freq_mag, freq_phase)
         self.reconstruct= Reconstruction(signal)
-        self.reconstruct.inverse_fourier(time,graph)
+        new_mag= self.reconstruct.inverse_fourier(time,graph)
+        self.spectrogram2.plot_spectrogram(new_mag, self.sample_rate, self.spectrogram_widget2)
 
     def plot_fourier_domain(self, freq_list, freq_mag):
         self.sample.plot_frequency_domain( freq_list, freq_mag, self.is_audiogram,self.graph3)

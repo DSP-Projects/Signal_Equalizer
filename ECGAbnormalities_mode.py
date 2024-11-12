@@ -5,8 +5,8 @@ import numpy as np
 from PyQt5.QtCore import Qt
 
 class ECGAbnormalities(Mode):
-    def __init__(self, sliders_widget, sample_instance,graph2,graph3,  num_of_sliders=4):
-        super().__init__(sliders_widget, num_of_sliders, sample_instance, graph2,graph3)
+    def __init__(self, sliders_widget, sample_instance,graph2,graph3, spectrogram_widget2,  num_of_sliders=4):
+        super().__init__(sliders_widget, num_of_sliders, sample_instance, graph2,graph3, spectrogram_widget2)
         self.sliders_widget = sliders_widget
         self.num_of_sliders = num_of_sliders
         
