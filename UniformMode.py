@@ -14,24 +14,23 @@ class UniformMode(Mode):
         min_freq, max_freq = freq_list[0], freq_list[-1]
         total_range = max_freq - min_freq
         step_size = total_range / len(self.sliders_list)
-        
         # Assign frequencies to corresponding ranges
         for i in range(10): 
             range_start = int(min_freq + i * step_size)
             range_end = int(range_start + step_size)
+            print(f"range_start, range_end{range_start, range_end}")
             for comp in freq_list:
-                if comp in range(range_start,range_end):
+                if range_start <= comp < range_end:
                     self.freq_ranges[i].append(comp)
                 elif comp > range_end:
                      break
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         self.init_mode(freq_list)
+        print(self.freq_ranges)
         gain_factor = (gain_value / max(self.gain_limits)) * 2  # Normalize gain to a 0-2 factor
-
         # Get the frequency range for this slider
         freq_range = self.freq_ranges[slider_index]
-
         # Apply gain only to frequencies within the specified range
         freq_mag = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
                                 freq_mag * gain_factor, 

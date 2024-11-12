@@ -7,7 +7,7 @@ from Reconstruction import Reconstruction
 class Mode(ABC):
     def __init__(self, sliders_widget, num_of_sliders, sample_instance, graph2, graph3):
         self.clear_sliders(sliders_widget)
-        self.freq_ranges= None
+        # self.freq_ranges= None
         self.sliders_widget=sliders_widget
         self.sliders_list=[]
         self.gain_limits = (0, 10)

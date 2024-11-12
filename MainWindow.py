@@ -10,7 +10,7 @@ from PyQt5.QtGui import QIcon
 from Load import Load
 from Signal import Signal
 from sampling import Sampling
-import numpy as np
+import numpy as npr
 from UniformMode import UniformMode
 from MusicMode import MusicMode
 from ECGAbnormalities_mode import ECGAbnormalities
