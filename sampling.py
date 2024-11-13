@@ -16,6 +16,11 @@ class Sampling:
         self.magnitudes = None
         self.phases = None
 
+
+        self.modified_frequencies = None
+        self.modified_magnitudes = None
+        self.modified_phases = None
+
     def sample_signal(self, signal_data_time, signal_data_amplitude, sample_rate):
         self.sampling_interval = 1 / sample_rate
         self.sampled_time = np.arange(0, max(signal_data_time), self.sampling_interval)
@@ -37,6 +42,9 @@ class Sampling:
         magnitudes = np.abs(fft_result)
         phases = np.angle(fft_result)
         
+        
+
+
         positive_frequencies = frequencies > 0
 
         self.frequencies=frequencies[positive_frequencies]

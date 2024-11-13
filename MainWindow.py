@@ -10,13 +10,14 @@ from PyQt5.QtGui import QIcon
 from Load import Load
 from Signal import Signal
 from sampling import Sampling
-import numpy as npr
+import numpy as np
 from UniformMode import UniformMode
 from MusicMode import MusicMode
 from ECGAbnormalities_mode import ECGAbnormalities
 from AnimalMode import AnimalMode
+import sounddevice as sd 
 import simpleaudio as sa
-from pydub import AudioSegment
+
 
 
 class MainWindow(QMainWindow):
@@ -74,10 +75,6 @@ class MainWindow(QMainWindow):
         self.speed.setValue(150)  # Set initial zoom value
         self.speed.valueChanged.connect(self.set_speed_value) 
 
-        # self.toggle_stat_original_audio = self.findChild(QPushButton, 'audioBefore')
-        # self.toggle_stat_original_audio.clicked.connect(self.play_original_audio_func)
-      
-
         self.graph1 = self.findChild(pg.PlotWidget, 'graph1')
         self.graph2 = self.findChild(pg.PlotWidget, 'graph2')
         self.graph3 = self.findChild(pg.PlotWidget, 'graph3')
@@ -94,11 +91,14 @@ class MainWindow(QMainWindow):
         self.pause_icon = QIcon("icons/pause (2).png")
         self.play.setIcon(self.pause_icon)
 
-        self.audiobefore.setIcon(self.pause_icon)
-        self.audioafter.setIcon(self.pause_icon)
+        self.audiobefore.setIcon(self.play_icon)
+        self.audioafter.setIcon(self.play_icon)
         self.current_icon = 1
-        self.audiobefore.setText('Pause')
-        self.audioafter.setText('Pause')
+        self.audiobefore.setText('Play')
+        self.audioafter.setText('Play')
+
+        self.audiobefore.clicked.connect(self.play_original_audio)
+        self.audioafter.clicked.connect(self.play_modified_audio)
 
         #self.change_mode(0)
 
@@ -113,7 +113,9 @@ class MainWindow(QMainWindow):
 
     def zoom_out(self):
         self.graph1.zoom_out() 
-        self.graph2.zoom_out()  
+        self.graph2.zoom_out() 
+
+   
 
 
     def handle_checkbox_state(self): 
@@ -143,12 +145,56 @@ class MainWindow(QMainWindow):
         if self.signal.signal_data_time is not None and self.signal.signal_data_amplitude is not None:
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), is_audiogram, self.graph3)        
 
-    # def play_original_audio_func(self):
-    #     audio = AudioSegment.from_file(self.file_path)
-    #     sample_rate = audio.frame_rate
-    #     samples = np.array(audio.get_array_of_samples())
-    #     audio_obj = sa.play_buffer(samples.tobytes(), 1, 2, sample_rate)
-    #     audio_obj.wait_done() 
+
+
+    
+    def _prepare_data(self, data):
+        """ Normalize and prepare data for playback """
+        # Normalize the audio data
+        data = data.astype(np.float32)
+        data /= np.max(np.abs(data)) if np.max(np.abs(data)) != 0 else 1.0
+
+        # Convert stereo to mono if needed
+        if data.ndim > 1:
+            data = np.mean(data, axis=1)  # Convert to mono
+
+        return data
+
+    def play_audio(self, data):
+        """ Play audio using sounddevice and wait until it's done """
+        try:
+            # Prepare the data
+            data = self._prepare_data(data)
+            
+            # Play audio and wait for it to finish
+            sd.play(data, samplerate=self.signal.sample_rate_wav)
+            # sd.wait()  
+
+            print("Audio playback completed.")
+        except Exception as e:
+            print(f"Error while playing sound: {e}")
+
+    def play_original_audio(self):
+       
+        if self.signal is not None:
+            data=0
+            data = self.signal.signal_data_amplitude
+            self.play_audio(data)
+
+    def play_modified_audio(self):
+        
+        if self.mode_instance is not None:
+            if self.mode_instance.get_inverse() is not None:
+                data=0
+                data = self.mode_instance.get_inverse()
+            else:
+                data=0
+                data = self.signal.signal_data_amplitude
+
+        if data is not None:
+            self.play_audio(data)
+
+        
     
 
     def load_signal(self): 
@@ -161,6 +207,7 @@ class MainWindow(QMainWindow):
                   self.prepare_load(self.file_path)
               except Exception as e: 
                 QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
+
     def rewind_signal(self):        
         self.graph1.rewind()
         self.graph2.rewind()
@@ -204,13 +251,17 @@ class MainWindow(QMainWindow):
         print(index)
         match index:
             case 0: #uniform
-                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)     
+                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2) 
+                    self.clear_signals()    
             case 1: #musical 
                     self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
+                    self.clear_signals()  
             case 2: #animal
                     self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
+                    self.clear_signals()  
             case 4: #ECG
                     self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+                    self.clear_signals()  
     
     def set_default(self):
         file_path="output4.csv"

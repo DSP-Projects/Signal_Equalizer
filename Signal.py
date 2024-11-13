@@ -14,25 +14,18 @@ class Signal:
             self.signal_data_time = csvFile.iloc[:3000, 0].values
             self.signal_data_amplitude = csvFile.iloc[:3000, 1].values
             self.graph_num= graph_num
-        try:
-            if(self.file_extension=="wav"):
-                self.sample_rate_wav, signal = wavfile.read(file_path)
-                print("read")
-                duration = len(signal) / self.sample_rate_wav
-                self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
+
+        elif(self.file_extension=="wav"):
+           
+            self.sample_rate_wav, signal = wavfile.read(file_path)
+            duration = len(signal) / self.sample_rate_wav
+            self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
+            try:
                 self.signal_data_amplitude= np.array(signal[:, 0])
-            # print(self.signal_data_amplitude.shape)
-            # print(self.signal_data_time.shape)
-            # print(type(self.signal_data_amplitude))
-            # print(type(self.signal_data_time))
-        except:
-            if(self.file_extension=="wav"):
-                self.sample_rate_wav, signal = wavfile.read(file_path)
-                print("read2")
-                duration = len(signal) / self.sample_rate_wav
-                self.signal_data_time =np.array(np.linspace(0, duration, len(signal)))
+            except:
                 self.signal_data_amplitude= np.array(signal[:])
 
+    
     def set_signal_graph_num(self, new_graph_num):
         self.graph_num = new_graph_num
 

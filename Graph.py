@@ -46,8 +46,7 @@ class Graph:
         self.is_paused = False  # To track play/pause state
         self.is_rewinding = False  # To track rewind state
 
-        # Disable panning
-        self.graphWidget.getViewBox().setMouseEnabled(x=False, y=False)
+        
 
 
     def set_speed(self, interval): 

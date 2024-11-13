@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from PyQt5.QtWidgets import QSlider, QVBoxLayout
 from PyQt5.QtCore import Qt
 import math 
+import numpy as np
 from Reconstruction import Reconstruction
 from Spectrogram import Spectrogram
 class Mode(ABC):
@@ -20,6 +21,8 @@ class Mode(ABC):
         self.graph1= graph1
         self.spectrogram_widget2= spectrogram_widget2
         self.spectrogram2= Spectrogram()
+        self.reconstruct=None
+       
       
         if self.sliders_widget.layout() is None:
             layout = QVBoxLayout(self.sliders_widget)
@@ -48,11 +51,8 @@ class Mode(ABC):
         pass
 
     def send_reconstruct(self, freq_mag, freq_phase):
-            signal = []
-            for mag, phase in zip(freq_mag, freq_phase):
-                x = mag * math.cos(phase)
-                y = mag * math.sin(phase)
-                signal.append(complex(x, y))
+            signal=[]
+            signal = freq_mag* np.exp(1j *freq_phase)
             return signal
 
     def plot_inverse_fourier(self, freq_mag, freq_phase, time, graph):
@@ -78,3 +78,9 @@ class Mode(ABC):
                 child = layout.takeAt(0)
                 if child.widget():
                     child.widget().deleteLater()
+
+    def get_inverse(self):
+        if self.reconstruct is not None:
+            return self.reconstruct.inverse_fourier(self.time,self.graph2)  
+        else:
+            return None        
