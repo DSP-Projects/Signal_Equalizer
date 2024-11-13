@@ -21,7 +21,7 @@ class Mode(ABC):
         self.graph1= graph1
         self.spectrogram_widget2= spectrogram_widget2
         self.spectrogram2= Spectrogram()
-        self.reconstruct=None
+        self.reconstruct=None 
        
       
         if self.sliders_widget.layout() is None:
@@ -84,3 +84,8 @@ class Mode(ABC):
             return self.reconstruct.inverse_fourier(self.time,self.graph2)  
         else:
             return None        
+
+    def reset_sliders_to_default(self):
+        default_value = 5  # Set this to the initial default value of the sliders
+        for slider in self.sliders_list:
+            slider.setValue(default_value)   

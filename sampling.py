@@ -41,9 +41,7 @@ class Sampling:
         
         magnitudes = np.abs(fft_result)
         phases = np.angle(fft_result)
-        
-        
-
+         
 
         positive_frequencies = frequencies > 0
 
@@ -52,31 +50,58 @@ class Sampling:
         self.phases= phases[positive_frequencies]
 
     def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
-     graph.clear_signal()
-     if is_audiogram_scale:
-        log_magnitude = 20 * np.log10(magnitudes + 1e-10)  # Avoid log(0)
-        plot_data = (frequencies, log_magnitude)
-     else:
-        plot_data = (frequencies, magnitudes)
+        """Plot frequency domain with support for audiogram scale."""
+        graph.clear_signal()
+        audiogram_freqs = np.array([125, 250, 500, 1000, 2000, 4000, 8000])  # Standard audiogram frequencies
+        min_db = -60  # Minimum dB level to display
+        ref_level = 1.0  # Reference level for dB calculation
 
-     original_plot = pg.PlotDataItem(
-        plot_data[0],  # frequencies
-        plot_data[1],  # magnitudes
-        pen=pg.mkPen('b', width=2)
-    )
-     graph.graphWidget.addItem(original_plot)
-     graph.graphWidget.setXRange(0, frequencies[-1])
+        if is_audiogram_scale:
+            # Interpolate the magnitudes at audiogram frequencies
+            audiogram_magnitudes = np.interp(audiogram_freqs, self.frequencies, 20 * np.log10(self.magnitudes / ref_level + 1e-10))
+            audiogram_magnitudes = np.maximum(audiogram_magnitudes, min_db)  # Ensure a minimum dB level
+
+            # Plot audiogram with markers
+            audiogram_plot = pg.PlotDataItem(
+                audiogram_freqs,
+                audiogram_magnitudes,
+                pen=pg.mkPen('b', width=2),
+                symbol='o',
+                symbolSize=10
+            )
+            graph.graphWidget.addItem(audiogram_plot)
+            graph.graphWidget.setLogMode(x=True, y=False)
+            graph.graphWidget.setXRange(np.log10(100), np.log10(10000))  # Logarithmic scale range
+            graph.graphWidget.setYRange(min_db, 20)
+
+            # Set custom ticks for the audiogram frequencies
+            tick_values = [(np.log10(freq), str(freq)) for freq in audiogram_freqs]
+            graph.graphWidget.getAxis('bottom').setTicks([tick_values])
+            graph.graphWidget.getAxis('bottom').setLabel('Frequency (Hz)', units='Hz')
+        else:
+            # Standard linear plot
+            linear_plot = pg.PlotDataItem(
+                frequencies,
+                magnitudes,
+                pen=pg.mkPen('b', width=2)
+            )
+            graph.graphWidget.addItem(linear_plot)
+            graph.graphWidget.setLogMode(x=False, y=False)
+            graph.graphWidget.setXRange(0,frequencies[-1])  # Adjust for musical mode or lower frequency ranges
+            graph.graphWidget.setYRange(0, np.max(self.magnitudes))
+
+            # Set custom ticks for the linear frequencies
+            tick_values = [(freq, str(freq)) for freq in np.linspace(0, 2000, num=11)]
+            graph.graphWidget.getAxis('bottom').setTicks([tick_values])
+            graph.graphWidget.getAxis('bottom').setLabel('Frequency (Hz)', units='Hz')
 
     def get_frequencies(self):
-        """Return the frequencies array."""
         return self.frequencies
 
     def get_magnitudes(self):
-        """Return the magnitudes array."""
         return self.magnitudes
 
     def get_phases(self):
-        """Return the phases array."""
         return self.phases
 
     

@@ -31,11 +31,9 @@ class UniformMode(Mode):
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         self.init_mode(freq_list)
-        gain_factor= gain_value/10
-
 
         for slider_num,slider in enumerate(self.sliders_list):
-            self.sliders_values_array[slider_num]=slider.value()
+            self.sliders_values_array[slider_num]=(slider.value())
 
         # Apply gain only to frequencies within the specified range
         for i, freq_range in enumerate (self.freq_ranges):

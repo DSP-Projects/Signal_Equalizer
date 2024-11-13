@@ -168,7 +168,7 @@ class MainWindow(QMainWindow):
             
             # Play audio and wait for it to finish
             sd.play(data, samplerate=self.signal.sample_rate_wav)
-            # sd.wait()  
+            sd.wait()  
 
             print("Audio playback completed.")
         except Exception as e:
@@ -200,6 +200,7 @@ class MainWindow(QMainWindow):
     def load_signal(self): 
          self.file_path = self.load_instance.browse_signals() 
          self.clear_signals()
+         self.mode_instance.reset_sliders_to_default()      
          if self.file_path: 
               # Handle the loaded signal 
               # For example, load the signal data into a graph 
@@ -252,16 +253,18 @@ class MainWindow(QMainWindow):
         match index:
             case 0: #uniform
                     self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2) 
-                    self.clear_signals()    
             case 1: #musical 
                     self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
-                    self.clear_signals()  
+                  
             case 2: #animal
                     self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
-                    self.clear_signals()  
-            case 4: #ECG
+            case 3: #ECG
                     self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
-                    self.clear_signals()  
+        
+        self.clear_signals()
+        self.mode_instance.reset_sliders_to_default()    
+
+         
     
     def set_default(self):
         file_path="output4.csv"
@@ -279,7 +282,7 @@ class MainWindow(QMainWindow):
         self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sample_rate, self.spectrogram_widget2)
         self.mode_instance.set_time(self.signal.signal_data_time)
         self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
-        self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)      
+        self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
     
         
 if __name__ == '__main__':
