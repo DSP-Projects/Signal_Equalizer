@@ -16,14 +16,25 @@ class Signal:
             self.graph_num= graph_num
 
         elif(self.file_extension=="wav"):
-            self.sample_rate_wav, signal = wavfile.read(file_path)
-            duration = len(signal) / self.sample_rate_wav
-            self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
-            self.signal_data_amplitude= np.array(signal[:, 0])
-            print(self.signal_data_amplitude.shape)
-            print(self.signal_data_time.shape)
-            print(type(self.signal_data_amplitude))
-            print(type(self.signal_data_time))
+            try:
+                self.sample_rate_wav, signal = wavfile.read(file_path)
+                duration = len(signal) / self.sample_rate_wav
+                self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
+                self.signal_data_amplitude= np.array(signal[:, 0])
+                print(self.signal_data_amplitude.shape)
+                print(self.signal_data_time.shape)
+                print(type(self.signal_data_amplitude))
+                print(type(self.signal_data_time))
+            except:
+                self.sample_rate_wav, signal = wavfile.read(file_path)
+                duration = len(signal) / self.sample_rate_wav
+                self.signal_data_time =np.array( np.linspace(0, duration, len(signal)))
+                self.signal_data_amplitude= np.array(signal[:])
+                print(self.signal_data_amplitude.shape)
+                print(self.signal_data_time.shape)
+                print(type(self.signal_data_amplitude))
+                print(type(self.signal_data_time))
+
 
     def set_signal_graph_num(self, new_graph_num):
         self.graph_num = new_graph_num
