@@ -10,8 +10,9 @@ class UniformMode(Mode):
         self.sliders_values_array= np.ones(10)
         self.attenuation_array= None
     
-    def init_mode(self, freq_list):
+    def init_mode(self):
         # Sort frequencies and determine ranges
+        freq_list= self.sample.frequencies
         freq_list.sort()
         min_freq, max_freq = freq_list[0], freq_list[-1]
         total_range = max_freq - min_freq
@@ -30,7 +31,6 @@ class UniformMode(Mode):
 
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
-        self.init_mode(freq_list)
 
         for slider_num,slider in enumerate(self.sliders_list):
             self.sliders_values_array[slider_num]=(slider.value())

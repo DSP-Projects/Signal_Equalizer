@@ -252,7 +252,8 @@ class MainWindow(QMainWindow):
         print(index)
         match index:
             case 0: #uniform
-                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2) 
+                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+                    self.mode_instance.init_mode() 
             case 1: #musical 
                     self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
                   
@@ -268,8 +269,10 @@ class MainWindow(QMainWindow):
     
     def set_default(self):
         file_path="output4.csv"
-        self.change_mode(0)
+        self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
         self.prepare_load(file_path)
+        self.mode_instance.init_mode() 
+       
            
     def prepare_load(self, file_path):
         self.signal=Signal(3,file_path) 
