@@ -7,6 +7,8 @@ class UniformMode(Mode):
         super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2, graph1)
         self.freq_ranges = [[] for i in range (10)]
         self.old_value=5 #value of slider before change
+        self.sliders_values_array= np.ones(10)
+        self.attenuation_array= None
     
     def init_mode(self, freq_list):
         # Sort frequencies and determine ranges
@@ -23,17 +25,27 @@ class UniformMode(Mode):
                     self.freq_ranges[i].append(comp)
                 elif comp > range_end:
                      break
+        
+        self.attenuation_array= np.ones(len(self.sample.magnitudes))
+
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         self.init_mode(freq_list)
-        gain_factor = gain_value/self.old_value # to handle slider values correctly 
-        self.old_value= gain_value
-        # Get the frequency range for this slider
-        freq_range = self.freq_ranges[slider_index]
+        gain_factor= gain_value/10
+
+
+        for slider_num,slider in enumerate(self.sliders_list):
+            self.sliders_values_array[slider_num]=slider.value()
+
         # Apply gain only to frequencies within the specified range
-        freq_mag = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
-                                freq_mag * gain_factor, 
-                                freq_mag)
+        for i, freq_range in enumerate (self.freq_ranges):
+            self.attenuation_array = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
+                                    self.attenuation_array * self.sliders_values_array[i], 
+                                    self.attenuation_array)
+        
+        freq_mag= np.array(freq_mag)
+        new_freq_magnitude= (freq_mag*self.attenuation_array).tolist()
+        
         # Plot the updated frequency domain
-        self.plot_inverse_fourier(freq_mag, freq_phase, self.time, self.graph2)
-        self.plot_fourier_domain(freq_list, freq_mag)
+        self.plot_inverse_fourier(new_freq_magnitude, freq_phase, self.time, self.graph2)
+        self.plot_fourier_domain(freq_list, new_freq_magnitude)

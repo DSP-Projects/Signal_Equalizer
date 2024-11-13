@@ -220,7 +220,6 @@ class MainWindow(QMainWindow):
     def prepare_load(self, file_path):
         self.signal=Signal(3,file_path) 
         self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
-        print(self.signal.signal_data_amplitude)
         if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
             self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)

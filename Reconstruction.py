@@ -5,7 +5,7 @@ class Reconstruction:
         self.modified_fft=modified_fft
 
     def inverse_fourier(self, time, graph):
-        new_mag= np.fft.ifft(self.modified_fft).real
+        new_mag= np.fft.ifft(self.modified_fft).real #NEW DATA IN TIME DOMAIN
         print(new_mag)
         graph.set_signal(time, new_mag)
         return new_mag
