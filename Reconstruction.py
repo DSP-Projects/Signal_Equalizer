@@ -5,7 +5,8 @@ class Reconstruction:
         self.modified_fft=modified_fft
         
     def inverse_fourier(self, time, graph):
-        new_mag= np.abs(np.fft.ifft(self.modified_fft))
+        new_mag= np.fft.irfft(self.modified_fft)
+        #assert len(time) == len(new_mag), "Time and reconstructed signal length mismatch!"
         graph.set_signal(time, new_mag)
         return new_mag
 

@@ -8,6 +8,7 @@ class Sampling:
         self.sampled_time = None
         self.sampled_data = None
         self.sampling_interval = None
+        self.sample_rate=None
         
         self.is_audiogram_scale = False  # Start with linear scale by default
         
@@ -48,6 +49,10 @@ class Sampling:
         self.frequencies=frequencies[positive_frequencies]
         self.magnitudes=magnitudes[positive_frequencies]
         self.phases= phases[positive_frequencies]
+
+        print(f"len(self.frequencies) {len(self.frequencies)}")
+        print(f"len(self.magnitudes) {len(self.magnitudes)}")
+
 
     def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
         """Plot frequency domain with support for audiogram scale."""

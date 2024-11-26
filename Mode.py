@@ -14,15 +14,14 @@ class Mode(ABC):
         self.gain_limits = (0, 10)
         self.sample= sample_instance
         self.time= None
+        self.sample_rate= None
         self.graph2= graph2
         self.graph3= graph3
         self.is_audiogram= False
-        self.sample_rate=1000
         self.graph1= graph1
         self.spectrogram_widget2= spectrogram_widget2
         self.spectrogram2= Spectrogram()
         self.reconstruct=None 
-       
       
         if self.sliders_widget.layout() is None:
             layout = QVBoxLayout(self.sliders_widget)
@@ -63,10 +62,13 @@ class Mode(ABC):
         self.graph1.rewind()
 
     def plot_fourier_domain(self, freq_list, freq_mag):
-        self.sample.plot_frequency_domain( freq_list, freq_mag, self.is_audiogram,self.graph3)
+        self.sample.plot_frequency_domain(freq_list, freq_mag, self.is_audiogram,self.graph3)
 
     def set_time(self, time):
         self.time = time
+    
+    def set_sample_rate(self, sample_rate):
+        self.sample_rate=sample_rate
 
     def set_is_audiogram(self, is_audiogram):
         self.is_audiogram= is_audiogram

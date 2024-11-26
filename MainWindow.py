@@ -36,7 +36,6 @@ class MainWindow(QMainWindow):
         self.scale_combo_box.currentIndexChanged.connect(self.change_scale)
         self.sampling = Sampling()
         self.signal=None 
-        self.sample_rate = 1000 
         self.file_path=None
         self.mode_chosen= self.findChild(QComboBox, "mode")
         self.mode_chosen.setCurrentIndex(0)
@@ -167,7 +166,7 @@ class MainWindow(QMainWindow):
             data = self._prepare_data(data)
             
             # Play audio and wait for it to finish
-            sd.play(data, samplerate=self.signal.sample_rate_wav)
+            sd.play(data, samplerate=self.signal.sample_rate)
             sd.wait()  
 
             print("Audio playback completed.")
@@ -200,7 +199,6 @@ class MainWindow(QMainWindow):
     def load_signal(self): 
          self.file_path = self.load_instance.browse_signals() 
          self.clear_signals()
-         self.mode_instance.reset_sliders_to_default()      
          if self.file_path: 
               # Handle the loaded signal 
               # For example, load the signal data into a graph 
@@ -208,6 +206,7 @@ class MainWindow(QMainWindow):
                   self.prepare_load(self.file_path)
               except Exception as e: 
                 QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
+         self.mode_instance.reset_sliders_to_default()      
 
     def rewind_signal(self):        
         self.graph1.rewind()
@@ -276,14 +275,16 @@ class MainWindow(QMainWindow):
            
     def prepare_load(self, file_path):
         self.signal=Signal(3,file_path) 
-        self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sample_rate)
+        self.sampling.sample_rate= self.signal.sample_rate
+        self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sampling.sample_rate)
         if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
             self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
             self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
         self.signal=Signal(1,file_path)
-        self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sample_rate, self.spectrogram_widget1)
-        self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sample_rate, self.spectrogram_widget2)
+        self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget1)
+        self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget2)
         self.mode_instance.set_time(self.signal.signal_data_time)
+        self.mode_instance.set_sample_rate(self.signal.sample_rate)
         self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
         self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
     

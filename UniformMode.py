@@ -6,7 +6,6 @@ class UniformMode(Mode):
     def __init__(self, sliders_widget,sample_instance, graph2,graph3, graph1, spectrogram_widget2,  num_of_sliders: int=10):
         super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2, graph1)
         self.freq_ranges = [[] for i in range (10)]
-        self.old_value=5 #value of slider before change
         self.sliders_values_array= np.ones(10)
         self.attenuation_array= None
     
@@ -22,15 +21,15 @@ class UniformMode(Mode):
             range_start = int(min_freq + i * step_size)
             range_end = int(range_start + step_size)
             for comp in freq_list:
-                if range_start <= comp < range_end:
+                if range_start <= comp <= range_end:
                     self.freq_ranges[i].append(comp)
                 elif comp > range_end:
-                     break
-        
-        self.attenuation_array= np.ones(len(self.sample.magnitudes))
-
+                     continue
+    
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
+        
+        self.attenuation_array= np.ones(len(self.sample.magnitudes))
 
         for slider_num,slider in enumerate(self.sliders_list):
             self.sliders_values_array[slider_num]=(slider.value())
@@ -47,3 +46,4 @@ class UniformMode(Mode):
         # Plot the updated frequency domain
         self.plot_inverse_fourier(new_freq_magnitude, freq_phase, self.time, self.graph2)
         self.plot_fourier_domain(freq_list, new_freq_magnitude)
+ 
