@@ -12,7 +12,6 @@ class UniformMode(Mode):
     def init_mode(self):
         # Sort frequencies and determine ranges
         freq_list= self.sample.frequencies
-        freq_list.sort()
         min_freq, max_freq = freq_list[0], freq_list[-1]
         total_range = max_freq - min_freq
         step_size = total_range / len(self.sliders_list)
@@ -25,14 +24,16 @@ class UniformMode(Mode):
                     self.freq_ranges[i].append(comp)
                 elif comp > range_end:
                      continue
+        
+        #print(f"Uniform freq range:{self.freq_ranges}")
     
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         
-        self.attenuation_array= np.ones(len(self.sample.magnitudes))
+        self.attenuation_array= np.ones(len(freq_mag))
 
         for slider_num,slider in enumerate(self.sliders_list):
-            self.sliders_values_array[slider_num]=(slider.value())
+            self.sliders_values_array[slider_num]=(slider.value()/5)
 
         # Apply gain only to frequencies within the specified range
         for i, freq_range in enumerate (self.freq_ranges):
@@ -43,7 +44,9 @@ class UniformMode(Mode):
         freq_mag= np.array(freq_mag)
         new_freq_magnitude= (freq_mag*self.attenuation_array).tolist()
         
+        print(new_freq_magnitude[0]/freq_mag[0])
+
         # Plot the updated frequency domain
-        self.plot_inverse_fourier(new_freq_magnitude, freq_phase, self.time, self.graph2)
         self.plot_fourier_domain(freq_list, new_freq_magnitude)
+        self.plot_inverse_fourier(new_freq_magnitude, freq_phase, self.time, self.graph2)
  

@@ -76,13 +76,17 @@ class Sampling:
             )
             graph.graphWidget.addItem(audiogram_plot)
             graph.graphWidget.setLogMode(x=True, y=False)
-            graph.graphWidget.setXRange(np.log10(100), np.log10(10000))  # Logarithmic scale range
-            graph.graphWidget.setYRange(min_db, 20)
+            graph.graphWidget.setXRange(np.log10(audiogram_freqs[0]), np.log10(audiogram_freqs[-1]))  # Logarithmic scale range
+            graph.graphWidget.setYRange( min_db, np.max(audiogram_magnitudes) * 1.1)
+            graph.graphWidget.enableAutoRange(axis=pg.ViewBox.XYAxes, enable=True)  # Auto-adjust both x and y axes
+
 
             # Set custom ticks for the audiogram frequencies
             tick_values = [(np.log10(freq), str(freq)) for freq in audiogram_freqs]
+
             graph.graphWidget.getAxis('bottom').setTicks([tick_values])
-            graph.graphWidget.getAxis('bottom').setLabel('Frequency (Hz)', units='Hz')
+            graph.graphWidget.getAxis('bottom').setLabel('Frequency ', units='Hz')
+            graph.graphWidget.getAxis('left').setLabel('Intenisty ', units='dB')
         else:
             # Standard linear plot
             linear_plot = pg.PlotDataItem(
@@ -92,13 +96,16 @@ class Sampling:
             )
             graph.graphWidget.addItem(linear_plot)
             graph.graphWidget.setLogMode(x=False, y=False)
-            graph.graphWidget.setXRange(0,frequencies[-1])  # Adjust for musical mode or lower frequency ranges
-            graph.graphWidget.setYRange(0, np.max(self.magnitudes))
+            graph.graphWidget.enableAutoRange(axis=pg.ViewBox.XYAxes, enable=True)  # Auto-adjust both x and y axes
+
 
             # Set custom ticks for the linear frequencies
-            tick_values = [(freq, str(freq)) for freq in np.linspace(0, 2000, num=11)]
-            graph.graphWidget.getAxis('bottom').setTicks([tick_values])
-            graph.graphWidget.getAxis('bottom').setLabel('Frequency (Hz)', units='Hz')
+            num_ticks = 11  # Number of ticks you want
+            tick_values = np.linspace(0, np.max(frequencies), num_ticks)
+            x_tick_labels = [(int(tick), str(int(tick))) for tick in tick_values] 
+            graph.graphWidget.getAxis('bottom').setTicks([x_tick_labels])
+            graph.graphWidget.getAxis('bottom').setLabel('Frequency ', units='Hz')
+            graph.graphWidget.getAxis('left').setLabel('Amplitude ', units='v')
 
     def get_frequencies(self):
         return self.frequencies

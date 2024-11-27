@@ -267,7 +267,7 @@ class MainWindow(QMainWindow):
          
     
     def set_default(self):
-        file_path="output4.csv"
+        file_path="Synthetic_1.wav"
         self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
         self.prepare_load(file_path)
         self.mode_instance.init_mode() 

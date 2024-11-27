@@ -29,8 +29,6 @@ class AnimalMode(Mode):
                                     attenuation_array * self.sliders_values_array[i], 
                                     attenuation_array)
             
-        new_freq_mag= freq_mag.copy()
-        print(type(new_freq_mag), type(freq_mag))
         new_freq_mag= (freq_mag * attenuation_array)
         
         print(f"new_freq_mag match freq_mag: {(np.array_equal(new_freq_mag, freq_mag))} ")
