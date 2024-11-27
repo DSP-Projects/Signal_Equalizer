@@ -283,6 +283,7 @@ class MainWindow(QMainWindow):
         self.signal=Signal(1,file_path)
         self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget1)
         self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget2)
+        self.mode_instance.set_sample_instance(self.sampling)
         self.mode_instance.set_time(self.signal.signal_data_time)
         self.mode_instance.set_sample_rate(self.signal.sample_rate)
         self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 

@@ -91,3 +91,6 @@ class Mode(ABC):
         default_value = 5  # Set this to the initial default value of the sliders
         for slider in self.sliders_list:
             slider.setValue(default_value)   
+    
+    def set_sample_instance(self, sample_instance):
+        self.sample= sample_instance
