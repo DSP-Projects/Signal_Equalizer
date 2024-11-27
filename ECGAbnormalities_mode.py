@@ -11,6 +11,7 @@ class ECGAbnormalities(Mode):
         self.num_of_sliders = num_of_sliders
         self.sliders_values_array= np.ones(4)
         self.attenuation_array= None
+        self.update_slider_labels("ECG")
         
         # Define specific frequency values for each ECG abnormality
         self.freq_ranges = [

@@ -15,6 +15,7 @@ class MusicMode(Mode):
             self.freq_ranges['violin'] =  [(1020, 1060), (1520, 1600), (2560, 2640), (3080, 3180), (3590, 3720),(4110,4230),(4640,4650), (5140,5345)]
             self.freq_ranges['triangle'] =  [(4600, 5000), (5170, 5250), (5350, 5550), (5600,22000)]
             self.freq_ranges['xilaphone'] =  [(300,1000)]
+            self.update_slider_labels("Instrument")
             
 
 

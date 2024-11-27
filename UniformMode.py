@@ -8,6 +8,7 @@ class UniformMode(Mode):
         self.freq_ranges = [[] for i in range (10)]
         self.sliders_values_array= np.ones(10)
         self.attenuation_array= None
+        self.update_slider_labels("Uniform")
     
     def init_mode(self):
         # Sort frequencies and determine ranges

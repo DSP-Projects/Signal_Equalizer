@@ -52,8 +52,8 @@ class Graph:
     def set_speed(self, interval): 
         self.timer.setInterval(interval)  
 
-    def set_signal(self, signal_x, signal_y):
-        self.current_frame = 0  # Reset frame counter when new signal is set
+    def set_signal(self, signal_x, signal_y, current_frame=0):
+        self.current_frame = current_frame  # Reset frame counter when new signal is set
         self.signal_x = signal_x
         self.signal_y = signal_y
         self.update_plot()

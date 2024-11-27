@@ -11,6 +11,7 @@ class AnimalMode(Mode):
             # Dogs   ,    Wolves    ,   Crow    ,     Bat 
             self.freq_ranges =  [(0, 450), (450, 1100), (1100, 3000), (3000, 9000)]
             self.sliders_values_array= np.ones(4)
+            self.update_slider_labels("Animal")
             
             
 
