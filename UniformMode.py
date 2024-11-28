@@ -11,43 +11,45 @@ class UniformMode(Mode):
         self.update_slider_labels("Uniform")
     
     def init_mode(self):
-        # Sort frequencies and determine ranges
-        freq_list= self.sample.frequencies
+        """
+        Initialize frequency ranges for each slider, dividing the frequency range uniformly and ensuring non-overlapping ranges.
+        """
+        freq_list = self.sample.frequencies
+        freq_list.sort()
         min_freq, max_freq = freq_list[0], freq_list[-1]
         total_range = max_freq - min_freq
         step_size = total_range / len(self.sliders_list)
-        # Assign frequencies to corresponding ranges
-        for i in range(10): 
-            range_start = int(min_freq + i * step_size)
-            range_end = int(range_start + step_size)
-            for comp in freq_list:
-                if range_start <= comp <= range_end:
-                    self.freq_ranges[i].append(comp)
-                elif comp > range_end:
-                     continue
-        
-        #print(f"Uniform freq range:{self.freq_ranges}")
-    
+
+        # Assign start and end points for each range
+        for i in range(len(self.sliders_list)):
+            range_start = min_freq + i * step_size
+            range_end = min_freq + (i + 1) * step_size  # Non-overlapping
+            self.freq_ranges[i] = (range_start, range_end)  # Store as tuples
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
-        
-        self.attenuation_array= np.ones(len(freq_mag))
+        """
+        Update the Fourier domain based on slider changes, applying attenuation to the corresponding ranges.
+        """
+        # Reset attenuation array
+        self.attenuation_array = np.ones(len(freq_list))
 
-        for slider_num,slider in enumerate(self.sliders_list):
-            self.sliders_values_array[slider_num]=(slider.value()/5)
+        # Normalize slider values (assuming sliders go from 0 to 10)
+        self.sliders_values_array = np.array([slider.value() /5 for slider in self.sliders_list])
 
-        # Apply gain only to frequencies within the specified range
-        for i, freq_range in enumerate (self.freq_ranges):
-            self.attenuation_array = np.where((freq_list >= freq_range[0]) & (freq_list <= freq_range[1]),
-                                    self.attenuation_array * self.sliders_values_array[i], 
-                                    self.attenuation_array)
-        
-        freq_mag= np.array(freq_mag)
-        new_freq_magnitude= (freq_mag*self.attenuation_array).tolist()
-        
-        print(new_freq_magnitude[0]/freq_mag[0])
+        # Apply gain to frequencies in each range
+        for i, (range_start, range_end) in enumerate(self.freq_ranges):
+            self.attenuation_array = np.where(
+                (freq_list >= range_start) & (freq_list <= range_end),
+                self.attenuation_array * self.sliders_values_array[i],
+                self.attenuation_array
+            )
 
-        # Plot the updated frequency domain
+        # Apply attenuation to magnitudes
+        new_freq_magnitude = (np.array(freq_mag) * self.attenuation_array).tolist()
+
+        # Plot the updated Fourier domain
         self.plot_fourier_domain(freq_list, new_freq_magnitude)
         self.plot_inverse_fourier(new_freq_magnitude, freq_phase, self.time, self.graph2)
- 
+
+
+    

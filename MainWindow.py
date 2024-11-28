@@ -167,7 +167,7 @@ class MainWindow(QMainWindow):
             
             # Play audio and wait for it to finish
             sd.play(data, samplerate=self.signal.sample_rate)
-            sd.wait()  
+            # sd.wait()  
 
             print("Audio playback completed.")
         except Exception as e:
