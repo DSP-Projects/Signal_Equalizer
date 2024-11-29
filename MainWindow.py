@@ -199,6 +199,7 @@ class MainWindow(QMainWindow):
     def load_signal(self): 
          self.file_path = self.load_instance.browse_signals() 
          self.clear_signals()
+         
          if self.file_path: 
               # Handle the loaded signal 
               # For example, load the signal data into a graph 

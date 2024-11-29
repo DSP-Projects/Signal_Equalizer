@@ -125,7 +125,7 @@ class Mode(ABC):
             "Uniform": ["10HZ", "20HZ", "30HZ", "40HZ", "50HZ", "60HZ", "70HZ", "80HZ", "90HZ", "100HZ"],
             "Instrument": ["piano", "violin",  "triangle",  "xilaphone"],
             "Animal": ["Dogs", "Wolves", "Crow", "Bat"],
-            "ECG": ["Normal", "Atrial fibrillation", "Ventricular tachycardia", "Bradycardia"]
+            "ECG": ["Normal", "Atrial flutter", "Ventricular tachycardia", "Atrial fibrillation"]
         }
 
         labels = labels_map.get(mode, ["Default"] * len(self.slider_labels))

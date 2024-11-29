@@ -15,10 +15,10 @@ class ECGAbnormalities(Mode):
         
         # Define specific frequency values for each ECG abnormality
         self.freq_ranges = [
-            [0,50],        # Normal range
-           [50,100],         # Atrial fibrillation range
-             [95, 249],       # Ventricular tachycardia range
-            [141, 190]         # Bradycardia range
+            [0,400],        # Normal range
+           [51,60],         # Atrial flutter range
+             [120,200],       # Ventricular tachycardia range
+            [1101,1200]         # Atrial fibrillation
         ]
         print('range done')
     
