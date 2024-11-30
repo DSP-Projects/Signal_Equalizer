@@ -69,7 +69,6 @@ class Sampling:
         magnitudes_db = 20 * np.log10(magnitudes / ref_level + epsilon)
         
 
-        # Filter valid frequencies and take log10
         valid_indices = frequencies > 0
         frequencies = frequencies[valid_indices]
         magnitudes_db = magnitudes_db[valid_indices]
@@ -91,7 +90,7 @@ class Sampling:
         x_axis = graph.graphWidget.getAxis('bottom')
 
         # Generate custom ticks and labels
-        tick_positions = np.geomspace(np.min(frequencies), np.max(frequencies), num=20)  # 10 spaced ticks
+        tick_positions = np.geomspace(np.min(frequencies), np.max(frequencies), num=30)  
         tick_labels = [
             f"{tick:.1f}" if tick < 1 else f"{int(tick)}"
             for tick in tick_positions
@@ -101,7 +100,7 @@ class Sampling:
         # Show every second tick to alternate labels
         spaced_ticks = [(tick, label) for i, (tick, label) in enumerate(ticks) if i % 1 == 0]
         x_axis.setTicks([spaced_ticks])
-        x_axis.setLabel('Frequency (Hz)', units='')
+        x_axis.setLabel('Frequency (Hz)')
         graph.graphWidget.getAxis('left').setLabel('Intenisty ', units='dB')
 
 
@@ -114,15 +113,17 @@ class Sampling:
             )
             graph.graphWidget.addItem(linear_plot)
             graph.graphWidget.setLogMode(x=False, y=False)
-            graph.graphWidget.enableAutoRange(axis=pg.ViewBox.XYAxes, enable=True)  # Auto-adjust both x and y axes
+            graph.graphWidget.setYRange(0, np.max(magnitudes))
+            graph.graphWidget.setXRange(np.min(frequencies), np.max(frequencies))
+
 
 
             # Set custom ticks for the linear frequencies
-            num_ticks = 11  # Number of ticks you want
+            num_ticks = 15  # Number of ticks you want
             tick_values = np.linspace(0, np.max(frequencies), num_ticks)
             x_tick_labels = [(int(tick), str(int(tick))) for tick in tick_values] 
             graph.graphWidget.getAxis('bottom').setTicks([x_tick_labels])
-            graph.graphWidget.getAxis('bottom').setLabel('Frequency ', units='Hz')
+            graph.graphWidget.getAxis('bottom').setLabel('Frequency (Hz)')
             graph.graphWidget.getAxis('left').setLabel('Amplitude ', units='v')
             
    

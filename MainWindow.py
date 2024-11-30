@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
             print("PlotWidgets are visible")
 
 
-    def change_scale(self):
+    def change_scale(self,selected_scale):
         """Update the graph to use either linear or audiogram scale based on combo box selection."""
         selected_scale = self.scale_combo_box.currentText()
        
@@ -207,7 +207,9 @@ class MainWindow(QMainWindow):
                   self.prepare_load(self.file_path)
               except Exception as e: 
                 QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
-         self.mode_instance.reset_sliders_to_default()      
+         self.mode_instance.reset_sliders_to_default()  
+         current_scale=self.scale_combo_box.currentText()
+         self.change_scale(current_scale)
 
     def rewind_signal(self):        
         self.graph1.rewind()
