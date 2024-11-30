@@ -11,9 +11,6 @@ class UniformMode(Mode):
         self.update_slider_labels("Uniform")
     
     def init_mode(self):
-        """
-        Initialize frequency ranges for each slider, dividing the frequency range uniformly and ensuring non-overlapping ranges.
-        """
         freq_list = self.sample.frequencies
         freq_list.sort()
         min_freq, max_freq = freq_list[0], freq_list[-1]
@@ -23,13 +20,10 @@ class UniformMode(Mode):
         # Assign start and end points for each range
         for i in range(len(self.sliders_list)):
             range_start = min_freq + i * step_size
-            range_end = min_freq + (i + 1) * step_size  # Non-overlapping
+            range_end = min_freq + (i+1) * step_size  # Non-overlapping
             self.freq_ranges[i] = (range_start, range_end)  # Store as tuples
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
-        """
-        Update the Fourier domain based on slider changes, applying attenuation to the corresponding ranges.
-        """
         # Reset attenuation array
         self.attenuation_array = np.ones(len(freq_list))
 

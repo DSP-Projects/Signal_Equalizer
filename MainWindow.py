@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
 
 
         
-         #hajar
+        #hajar
         # Initialize the scale combo box
         self.scale_combo_box = self.findChild(QComboBox, 'scale')
         self.scale_combo_box.setCurrentIndex(0)  # Set default to "Linear Scale"

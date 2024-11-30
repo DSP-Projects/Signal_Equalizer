@@ -35,23 +35,29 @@ class Sampling:
         """Toggle the frequency scale between linear and audiogram."""
         self.is_audiogram_scale = audiogram_scale
     
-    def compute_fft(self, signal_data_time, signal_data_amplitude):
+    def compute_fft(self, signal_data_time, signal_data_amplitude): 
+        """
+        Compute the real FFT of the input signal and extract frequencies, magnitudes, and phases.
+        """
+        # Compute rFFT result (real-valued input)
+        fft_result = np.fft.rfft(signal_data_amplitude)
 
-        fft_result = np.fft.fft(signal_data_amplitude)
-        frequencies = np.fft.fftfreq(len(fft_result), (signal_data_time[1] - signal_data_time[0]))
+        # Compute corresponding positive frequencies
+        frequencies = np.fft.rfftfreq(len(signal_data_amplitude), d=(signal_data_time[1] - signal_data_time[0]))
         
+        # Compute magnitudes and phases
         magnitudes = np.abs(fft_result)
         phases = np.angle(fft_result)
-         
+        
+        # Assign the computed components
+        self.frequencies = frequencies
+        self.magnitudes = magnitudes
+        self.phases = phases
 
-        positive_frequencies = frequencies > 0
+        # Debugging output
+        print(f"len(self.frequencies): {len(self.frequencies)}")
+        print(f"len(self.magnitudes): {len(self.magnitudes)}")
 
-        self.frequencies=frequencies[positive_frequencies]
-        self.magnitudes=magnitudes[positive_frequencies]
-        self.phases= phases[positive_frequencies]
-
-        print(f"len(self.frequencies) {len(self.frequencies)}")
-        print(f"len(self.magnitudes) {len(self.magnitudes)}")
 
 
     def plot_frequency_domain(self, frequencies, magnitudes, is_audiogram_scale, graph):
