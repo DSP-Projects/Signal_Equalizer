@@ -8,7 +8,7 @@ class UniformMode(Mode):
         self.freq_ranges = [[] for i in range (10)]
         self.sliders_values_array= np.ones(10)
         self.attenuation_array= None
-        self.update_slider_labels("Uniform")
+       
     
     def init_mode(self):
         freq_list = self.sample.frequencies
@@ -22,6 +22,8 @@ class UniformMode(Mode):
             range_start = min_freq + i * step_size
             range_end = min_freq + (i+1) * step_size  # Non-overlapping
             self.freq_ranges[i] = (range_start, range_end)  # Store as tuples
+        
+        self.update_slider_labels("Uniform",self.freq_ranges)
 
     def update_mode_upon_sliders_change(self, slider_index, gain_value, freq_list, freq_mag, freq_phase):
         # Reset attenuation array

@@ -50,6 +50,7 @@ class Mode(ABC):
             label_container = QWidget()
             label_layout = QHBoxLayout(label_container)
 
+
             icon_label = QLabel()  # QLabel for the icon
             icon_pixmap = QPixmap()  # Initialize with an empty QPixmap (to be updated later)
             icon_label.setPixmap(icon_pixmap.scaled(20, 20, Qt.KeepAspectRatio))  # Set default size for the icon
@@ -61,6 +62,7 @@ class Mode(ABC):
             label_layout.addWidget(icon_label)
             label_layout.addWidget(label)
             label_layout.setAlignment(Qt.AlignCenter)
+            label_layout.setContentsMargins(0, 0, 0, 0)
 
             # Add slider and label to the container's layout
             slider_layout.addWidget(slider)
@@ -143,13 +145,13 @@ class Mode(ABC):
     def set_sample_instance(self, sample_instance):
         self.sample = sample_instance
 
-    def update_slider_labels(self, mode):
+    def update_slider_labels(self, mode, freq_ranges=None):
         """
         Update the labels under the sliders based on the selected mode.
         :param mode: The mode as a string ('Uniform', 'Instrument', 'Animal', 'ECG').
         """
         labels_map = {
-            "Uniform": ["10HZ", "20HZ", "30HZ", "40HZ", "50HZ", "60HZ", "70HZ", "80HZ", "90HZ", "100HZ"],
+            "Uniform": [f"{int(freq_range[0])}-{int(freq_range[1])}" for freq_range in freq_ranges],
             "Instrument": ["piano", "violin",  "triangle",  "xylophone"],
             "Animal": ["Dogs", "Wolves", "Crow", "Bat"],
             "ECG": ["Normal", "Atrial flutter", "Ventricular tachycardia", "Atrial fibrillation"]
@@ -168,7 +170,10 @@ class Mode(ABC):
                 # Update label text
                 label.setText(text)
                 label.setStyleSheet("font-weight: bold; font-size: 17px; color: #2e556d;")
+                label.setStyleSheet("padding-left: 2px;")
 
                 # Update icon
                 icon_pixmap = QPixmap(icon_path)
                 icon_label.setPixmap(icon_pixmap.scaled(40, 40, Qt.KeepAspectRatio))
+                icon_label.setStyleSheet("padding-left: 0px;")
+                
