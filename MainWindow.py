@@ -48,9 +48,7 @@ class MainWindow(QMainWindow):
 
 
         self.audiobefore = self.findChild(QPushButton, 'audioBefore')
-        self.audiobefore.clicked.connect(self.audio_before)
         self.audioafter = self.findChild(QPushButton, 'audioAfter')
-        self.audioafter.clicked.connect(self.audio_after)
         self.signal=None
         self.zoom_in_button = self.findChild(QPushButton, 'zoomIn') 
         self.zoom_in_button.clicked.connect(self.zoom_in) 
@@ -99,7 +97,22 @@ class MainWindow(QMainWindow):
         self.audiobefore.clicked.connect(self.play_original_audio)
         self.audioafter.clicked.connect(self.play_modified_audio)
 
+        # Initialize playback state for both buttons
+        self.is_playing_before = False  # For the original audio button
+        self.is_playing_after = False   # For the modified audio button
+
+        self.link_graphs()
         #self.change_mode(0)
+
+    def link_graphs(self):
+        viewbox1 = self.graph1.graphWidget.getViewBox()
+        viewbox2 = self.graph2.graphWidget.getViewBox()
+    
+        viewbox2.setXLink(viewbox1)  
+        viewbox2.setYLink(viewbox1)  
+
+        viewbox1.setLimits(xMin=0)
+        viewbox2.setLimits(xMin=0)        
 
     def set_speed_value(self, value): 
         self.graph1.set_speed(value) 
@@ -174,124 +187,143 @@ class MainWindow(QMainWindow):
             print(f"Error while playing sound: {e}")
 
     def play_original_audio(self):
-       
-        if self.signal is not None:
-            data=0
-            data = self.signal.signal_data_amplitude
-            self.play_audio(data)
+        """Toggle play/pause for the original audio."""
+        if not self.is_playing_before:  # If not playing, start playing
+            if self.signal is not None:
+                data = self.signal.signal_data_amplitude
+                self.play_audio(data)
+
+                # Update button state and icon to 'pause'
+                self.audiobefore.setIcon(self.pause_icon)  # Replace with pause icon
+                self.audiobefore.setText('Pause')
+                self.is_playing_before = True
+        else:  # If playing, pause it
+            sd.stop()  # Stop audio playback
+            self.audiobefore.setIcon(self.play_icon)  # Replace with play icon
+            self.audiobefore.setText('Play')
+            self.is_playing_before = False  
 
     def play_modified_audio(self):
-        
-        if self.mode_instance is not None:
-            if self.mode_instance.get_inverse() is not None:
-                data=0
-                data = self.mode_instance.get_inverse()
-            else:
-                data=0
-                data = self.signal.signal_data_amplitude
+        """Toggle play/pause for the modified audio."""
+        if not self.is_playing_after:  # If not playing, start playing
+            if self.mode_instance is not None:
+                if self.mode_instance.get_inverse() is not None:
+                    data = self.mode_instance.get_inverse()
+                else:
+                    data = self.signal.signal_data_amplitude
 
-        if data is not None:
-            self.play_audio(data)
+                if data is not None:
+                    self.play_audio(data)
 
+                    # Update button state and icon to 'pause'
+                    self.audioafter.setIcon(self.pause_icon)  # Replace with pause icon
+                    self.audioafter.setText('Pause')
+                    self.is_playing_after = True
+        else:  # If playing, pause it
+            sd.stop()  # Stop audio playback
+            self.audioafter.setIcon(self.play_icon)  # Replace with play icon
+            self.audioafter.setText('Play')
+            self.is_playing_after = False
+
+            
         
-    
 
     def load_signal(self): 
-         self.file_path = self.load_instance.browse_signals() 
-         self.clear_signals()
-         
-         if self.file_path: 
-              # Handle the loaded signal 
-              # For example, load the signal data into a graph 
-              try: 
-                  self.prepare_load(self.file_path)
-              except Exception as e: 
-                QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
-         self.mode_instance.reset_sliders_to_default()  
-         current_scale=self.scale_combo_box.currentText()
-         self.change_scale(current_scale)
+            self.file_path = self.load_instance.browse_signals() 
+            self.clear_signals()
+            
+            if self.file_path: 
+                # Handle the loaded signal 
+                # For example, load the signal data into a graph 
+                try: 
+                    self.prepare_load(self.file_path)
+                except Exception as e: 
+                    QMessageBox.warning(self, "Error", f"Failed to load signal: {e}") 
+            self.mode_instance.reset_sliders_to_default()  
+            current_scale=self.scale_combo_box.currentText()
+            self.change_scale(current_scale)
 
     def rewind_signal(self):        
-        self.graph1.rewind()
-        self.graph2.rewind()
+            self.graph1.rewind()
+            self.graph2.rewind()
 
     def clear_signals(self): 
-        self.graph1.clear_signal() 
-        self.graph2.clear_signal() 
-        self.graph3.clear_signal() 
+            self.graph1.clear_signal() 
+            self.graph2.clear_signal() 
+            self.graph3.clear_signal() 
 
-    def audio_before(self):
-        if self.current_icon == 1: 
-            self.audiobefore.setIcon(self.play_icon)
-            self.audiobefore.setText("Play")
-            self.current_icon = 2
-        else: 
-            self.audiobefore.setIcon(self.pause_icon) 
-            self.audiobefore.setText("Pause")   
-            self.current_icon = 1 
+    # def audio_before(self):
+    #         if self.current_icon == 1: 
+    #             self.audiobefore.setIcon(self.play_icon)
+    #             self.audiobefore.setText("Play")
+    #             self.current_icon = 2
+    #         else: 
+    #             self.audiobefore.setIcon(self.pause_icon) 
+    #             self.audiobefore.setText("Pause")   
+    #             self.current_icon = 1 
 
-    def audio_after(self):  
-        if self.current_icon == 1: 
-            self.audioafter.setIcon(self.play_icon)
-            self.audioafter.setText("Play")
+    # def audio_after(self):  
+    #         if self.current_icon == 1: 
+    #             self.audioafter.setIcon(self.play_icon)
+    #             self.audioafter.setText("Play")
 
-            self.current_icon = 2 
-        else:
-            self.audioafter.setIcon(self.pause_icon) 
-            self.audioafter.setText("Pause")
-            self.current_icon = 1    
-    
+    #             self.current_icon = 2 
+    #         else:
+    #             self.audioafter.setIcon(self.pause_icon) 
+    #             self.audioafter.setText("Pause")
+    #             self.current_icon = 1    
+        
 
     def toggle_play_pause(self): 
-        self.graph1.toggle_play_pause() 
-        self.graph2.toggle_play_pause() 
-        if self.graph1.is_paused: 
-            self.play.setIcon(self.play_icon) 
-        else: 
-            self.play.setIcon(self.pause_icon)
-    
-    def change_mode(self, index):
-        print(index)
-        match index:
-            case 0: #uniform
-                    self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
-                    self.mode_instance.init_mode() 
-            case 1: #musical 
-                    self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
-                  
-            case 2: #animal
-                    self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
-            case 3: #ECG
-                    self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+            self.graph1.toggle_play_pause() 
+            self.graph2.toggle_play_pause() 
+            if self.graph1.is_paused: 
+                self.play.setIcon(self.play_icon) 
+            else: 
+                self.play.setIcon(self.pause_icon)
         
-        self.clear_signals()
-        self.mode_instance.reset_sliders_to_default()    
+    def change_mode(self, index):
+            print(index)
+            match index:
+                case 0: #uniform
+                        self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+                        self.mode_instance.init_mode() 
+                case 1: #musical 
+                        self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
+                    
+                case 2: #animal
+                        self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
+                case 3: #ECG
+                        self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+            
+            self.clear_signals()
+            self.mode_instance.reset_sliders_to_default()    
 
-         
-    
+            
+        
     def set_default(self):
-        file_path="Synthetic_1.wav"
-        self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
-        self.prepare_load(file_path)
-        self.mode_instance.init_mode() 
-       
-           
+            file_path="Synthetic_1.wav"
+            self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+            self.prepare_load(file_path)
+            self.mode_instance.init_mode() 
+        
+            
     def prepare_load(self, file_path):
-        self.signal=Signal(3,file_path) 
-        self.sampling.sample_rate= self.signal.sample_rate
-        self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sampling.sample_rate)
-        if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
-            self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
-            self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
-        self.signal=Signal(1,file_path)
-        self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget1)
-        self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget2)
-        self.mode_instance.set_sample_instance(self.sampling)
-        self.mode_instance.set_time(self.signal.signal_data_time)
-        self.mode_instance.set_sample_rate(self.signal.sample_rate)
-        self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
-        self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
-    
+            self.signal=Signal(3,file_path) 
+            self.sampling.sample_rate= self.signal.sample_rate
+            self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sampling.sample_rate)
+            if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
+                self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
+                self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
+            self.signal=Signal(1,file_path)
+            self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget1)
+            self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget2)
+            self.mode_instance.set_sample_instance(self.sampling)
+            self.mode_instance.set_time(self.signal.signal_data_time)
+            self.mode_instance.set_sample_rate(self.signal.sample_rate)
+            self.graph1.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude) 
+            self.graph2.set_signal(self.signal.signal_data_time, self.signal.signal_data_amplitude)
+        
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
