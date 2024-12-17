@@ -14,7 +14,7 @@ import numpy as np
 from UniformMode import UniformMode
 from MusicMode import MusicMode
 from ECGAbnormalities_mode import ECGAbnormalities
-from AnimalMode import AnimalMode
+from AnimalAndMusic_Mode import AnimalAndMusic
 import sounddevice as sd 
 import simpleaudio as sa
 
@@ -68,9 +68,9 @@ class MainWindow(QMainWindow):
         self.spectrogram_check = self.findChild(QCheckBox, 'spectogramCheck')
         self.spectrogram_check.stateChanged.connect(self.handle_checkbox_state)
         self.speed = self.findChild(QSlider, 'speedSlider')
-        self.speed.setMinimum(10)  # Set minimum zoom value
-        self.speed.setMaximum(200)  # Set maximum zoom value
-        self.speed.setValue(150)  # Set initial zoom value
+        self.speed.setMinimum(0)  # Set minimum zoom value
+        self.speed.setMaximum(50)  # Set maximum zoom value
+        self.speed.setValue(25)  # Set initial zoom value
         self.speed.valueChanged.connect(self.set_speed_value) 
 
         self.graph1 = self.findChild(pg.PlotWidget, 'graph1')
@@ -115,9 +115,18 @@ class MainWindow(QMainWindow):
         viewbox1.setLimits(xMin=0)
         viewbox2.setLimits(xMin=0)        
 
-    def set_speed_value(self, value): 
-        self.graph1.set_speed(value) 
-        self.graph2.set_speed(value)
+    def set_speed_value(self, value):
+        # Map the slider value to a sensible range for QTimer interval
+        # Slider value (0 to 50) -> Timer interval (200ms to 10ms)
+        min_interval = 10  # Minimum interval (fastest updates)
+        max_interval = 200  # Maximum interval (slowest updates)
+        
+        # Invert the slider mapping
+        interval = max_interval - (max_interval - min_interval) * (value / self.speed.maximum())
+        
+        # Set the timer interval
+        self.graph1.set_speed(interval)
+        self.graph2.set_speed(interval)
 
 
     def zoom_in(self):
@@ -293,7 +302,7 @@ class MainWindow(QMainWindow):
                         self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
                     
                 case 2: #animal
-                        self.mode_instance= AnimalMode(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
+                        self.mode_instance= AnimalAndMusic(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
                 case 3: #ECG
                         self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
             

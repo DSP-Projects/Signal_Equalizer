@@ -4,14 +4,14 @@ import sys
 import numpy as np
 from PyQt5.QtCore import Qt
 
-class AnimalMode(Mode):
+class AnimalAndMusic(Mode):
     
-    def __init__(self, sliders_widget,sample_instance,graph2,graph3, graph1, spectrogram_widget2,  num_of_sliders: int=4):
+    def __init__(self, sliders_widget,sample_instance,graph2,graph3, graph1, spectrogram_widget2,  num_of_sliders: int=6):
             super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2,graph3, spectrogram_widget2,graph1)
-            # Dogs   ,    Wolves    ,   Crow    ,     Bat 
-            self.freq_ranges =  [(0, 450), (450, 1100), (1100, 3000), (3000, 9000)]
-            self.sliders_values_array= np.ones(4)
-            self.update_slider_labels("Animal")
+                                #Dog   ,     Crow    ,      Rat    ,      Piano,     Triangle    ,    Violin    
+            self.freq_ranges =  [(0, 1080), (1080, 2500), (9000, 22000), (500, 900),  (5300, 8000), (3000, 5300)]
+            self.sliders_values_array= np.ones(6)
+            self.update_slider_labels("Music & Animal (Mix)")
             
             
 

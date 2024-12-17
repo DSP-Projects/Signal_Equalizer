@@ -415,7 +415,7 @@ QComboBox QAbstractItemView {
              </item>
              <item>
               <property name="text">
-               <string>Animal Sounds</string>
+               <string>Animals and Musical Instruments</string>
               </property>
              </item>
              <item>

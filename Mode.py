@@ -151,15 +151,13 @@ class Mode(ABC):
         :param mode: The mode as a string ('Uniform', 'Instrument', 'Animal', 'ECG').
         """
         labels_map = {
-            "Uniform": [f"{int(freq_range[0])}-{int(freq_range[1])}" for freq_range in freq_ranges],
-            "Instrument": ["piano", "violin",  "triangle",  "xylophone"],
-            "Animal": ["Dogs", "Wolves", "Crow", "Bat"],
+            "Uniform": ["1","2","3", "4", "5","6","7","8","9","10"],
+            "Music & Animal (Mix)": ["dog", "coyotes", "rat", "piano",  "triangle", "violin"],
             "ECG": ["Normal", "Atrial flutter", "Ventricular tachycardia", "Atrial fibrillation"]
         }
 
         icons_map = {
-            "Instrument": ["icons/piano.png", "icons/violin.png",  "icons/triangle.png",  "icons/xylophone.png"],
-            "Animal": ["icons/dog.png", "icons/wolf.png", "icons/crow.png", "icons/bat.png"],
+            "Music & Animal (Mix)": ["icons/dog.png", "icons/coyote.JPG", "icons/rat.png",  "icons/piano.png", "icons/triangle.png",  "icons/violin.png"],
             
         }
 
