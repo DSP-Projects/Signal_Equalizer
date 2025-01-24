@@ -42,10 +42,9 @@ The application supports multiple operational modes with varying use cases.
 ---
 
 ### **2. Music and Animal Sounds Mode**  
-- Combines functionality for music and animal sound signals:  
-  - **Music Mode**:  
-    - Controls the magnitude of specific instruments and animal sounds in a mixed music-animal signal.  
-    - Ability to cancel **3 instruments** and **3 animals** entirely.  
+- Combines functionality for music and animal sound signals:   
+- Controls the magnitude of specific instruments and animal sounds in a mixed music-animal signal.  
+- Ability to cancel **3 instruments** and **3 animals** entirely.  
 - Sliders can control specific frequency ranges or combinations of ranges.
 
 ---
@@ -67,5 +66,15 @@ The application supports multiple operational modes with varying use cases.
 - Users can easily switch between modes using combobox.  
 - UI dynamically updates slider captions and count based on the selected mode.
 
+## Acknowledgments
 
+This project was supervised by **Dr. Tamer Basha** & **Eng. Omar**, who provided invaluable guidance and expertise throughout its development as part of the **Digital Signal Processing** course at **Cairo University Faculty of Engineering**.
 
+![Cairo University Logo](https://imgur.com/Wk4nR0m.png)
+
+## Contributors
+
+- [Judy Essam](https://github.com/JudyEssam)
+- [Laila Khaled](https://github.com/LailaKhaled352)
+- [Fatma Elsharkawy](https://github.com/FatmaElsharkawy)
+- [Hajar Ehab](https://github.com/HajarEhab)
