@@ -32,6 +32,8 @@ class Spectrogram:
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         
         f, t, Sxx = spectrogram(data, sampling_freq) #f: frequency, t: time, Sxx, spectrogram matrix
+        if Sxx.ndim == 3:
+         Sxx = np.mean(Sxx, axis=2) 
         Sxx_dB = 10 * np.log10(Sxx)
         
         img = self.canvas.axes.imshow(Sxx_dB, aspect='auto', origin='lower',

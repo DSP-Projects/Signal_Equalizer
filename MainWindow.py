@@ -13,10 +13,12 @@ from sampling import Sampling
 import numpy as np
 from UniformMode import UniformMode
 from MusicMode import MusicMode
-from ECGAbnormalities_mode import ECGAbnormalities
+from WeinerFilterr import WeinerFilterr
 from AnimalAndMusic_Mode import AnimalAndMusic
 import sounddevice as sd 
 import simpleaudio as sa
+from scipy.io import wavfile
+
 
 
 
@@ -118,7 +120,7 @@ class MainWindow(QMainWindow):
     def set_speed_value(self, value):
         # Map the slider value to a sensible range for QTimer interval
         # Slider value (0 to 50) -> Timer interval (200ms to 10ms)
-        min_interval = 10  # Minimum interval (fastest updates)
+        min_interval = 5  # Minimum interval (fastest updates)
         max_interval = 200  # Maximum interval (slowest updates)
         
         # Invert the slider mapping
@@ -262,27 +264,7 @@ class MainWindow(QMainWindow):
             self.graph2.clear_signal() 
             self.graph3.clear_signal() 
 
-    # def audio_before(self):
-    #         if self.current_icon == 1: 
-    #             self.audiobefore.setIcon(self.play_icon)
-    #             self.audiobefore.setText("Play")
-    #             self.current_icon = 2
-    #         else: 
-    #             self.audiobefore.setIcon(self.pause_icon) 
-    #             self.audiobefore.setText("Pause")   
-    #             self.current_icon = 1 
-
-    # def audio_after(self):  
-    #         if self.current_icon == 1: 
-    #             self.audioafter.setIcon(self.play_icon)
-    #             self.audioafter.setText("Play")
-
-    #             self.current_icon = 2 
-    #         else:
-    #             self.audioafter.setIcon(self.pause_icon) 
-    #             self.audioafter.setText("Pause")
-    #             self.current_icon = 1    
-        
+  
 
     def toggle_play_pause(self): 
             self.graph1.toggle_play_pause() 
@@ -294,20 +276,23 @@ class MainWindow(QMainWindow):
         
     def change_mode(self, index):
             print(index)
+            self.clear_signals()
+
             match index:
                 case 0: #uniform
                         self.mode_instance= UniformMode(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
                         self.mode_instance.init_mode() 
+                        self.mode_instance.reset_sliders_to_default()
                 case 1: #musical 
                         self.mode_instance= MusicMode(self.sliders_widget, self.sampling, self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
                     
                 case 2: #animal
                         self.mode_instance= AnimalAndMusic(self.sliders_widget, self.sampling,self.graph2, self.graph3,self.graph1, self.spectrogram_widget2)
                 case 3: #ECG
-                        self.mode_instance= ECGAbnormalities(self.sliders_widget, self.sampling, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2)
+                        
+                        self.mode_instance= WeinerFilterr(self.sliders_widget, self.signal.sample_rate, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2,self.graph1.graphWidget,self.signal)
             
-            self.clear_signals()
-            self.mode_instance.reset_sliders_to_default()    
+          
 
             
         
@@ -320,12 +305,14 @@ class MainWindow(QMainWindow):
             
     def prepare_load(self, file_path):
             self.signal=Signal(3,file_path) 
+            if   self.mode_chosen.currentIndex()==3:
+                 self.mode_instance.set_signal(self.signal)
             self.sampling.sample_rate= self.signal.sample_rate
             self.sampling.update_sampling(self.graph3, self.signal.signal_data_time, self.signal.signal_data_amplitude,self.sampling.sample_rate)
             if(self.signal.signal_data_amplitude is not None and len(self.signal.signal_data_amplitude) > 0 ):           
                 self.sampling.compute_fft(self.signal.signal_data_time,self.signal.signal_data_amplitude)
                 self.sampling.plot_frequency_domain(self.sampling.get_frequencies(),self.sampling.get_magnitudes(), False, self.graph3)
-            self.signal=Signal(1,file_path)
+            #self.signal=Signal(1,file_path)
             self.spectrogram_input.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget1)
             self.spectrogram_output.plot_spectrogram(self.signal.signal_data_amplitude, self.sampling.sample_rate, self.spectrogram_widget2)
             self.mode_instance.set_sample_instance(self.sampling)
