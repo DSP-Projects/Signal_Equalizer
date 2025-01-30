@@ -293,6 +293,11 @@ class MainWindow(QMainWindow):
                         self.mode_instance= WeinerFilterr(self.sliders_widget, self.signal.sample_rate, self.graph2, self.graph3, self.graph1, self.spectrogram_widget2,self.graph1.graphWidget,self.signal)
             
           
+            # self.spectrogram_input.canvas.figure.clear()
+            # self.spectrogram_output.canvas.figure.clear()
+            self.clear_signals()
+            self.mode_instance.reset_sliders_to_default()
+              
 
             
         

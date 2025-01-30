@@ -10,10 +10,10 @@ class MusicMode(Mode):
             super().__init__(sliders_widget, num_of_sliders, sample_instance,graph2, graph3, spectrogram_widget2, graph1)
             self.old_value=5
             self.freq_ranges=dict()
-            self.freq_ranges['piano'] =  [(0,10), (250, 275), (505, 540), (780, 790),(1040, 1060), (1565, 1590), (1840, 1850),(2105, 2120), (2375, 2395), (2650, 2665), (2925, 2940), (3200, 3215), (3487,3491), (3770, 3780), (4345, 4355), (4638, 4656), (4900, 4980)]
-            self.freq_ranges['violin'] =  [(1020, 1060), (1520, 1600), (2560, 2640), (3080, 3180), (3590, 3720),(4110,4230),(4640,4650), (5140,5345)]
-            self.freq_ranges['triangle'] =  [(4600, 5000), (5170, 5250), (5350, 5550), (5600,22000)]
-            self.freq_ranges['xilaphone'] =  [(300,1000)]
+            self.freq_ranges['drums'] =  [(20,260)]
+            self.freq_ranges['letter s'] =  [(2000,15000)]
+            self.freq_ranges['letter I'] =  [(650,1700)]
+            self.freq_ranges['Triangle'] =  [(4000,19000)]
             self.update_slider_labels("Instrument")
             
             self.sliders_values_array= np.ones(4)
@@ -23,7 +23,7 @@ class MusicMode(Mode):
         """
         Update the frequency magnitudes based on slider changes, preserving cumulative effects of all sliders.
         """
-        instruments = ['piano', 'violin', 'triangle', 'xilaphone']
+        instruments = ['drums', 'letter s', 'letter I', 'Triangle']
         if slider_index >= len(instruments):
                 return  # Invalid slider index
 

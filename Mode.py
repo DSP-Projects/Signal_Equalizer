@@ -160,14 +160,16 @@ class Mode(ABC):
         :param mode: The mode as a string ('Uniform', 'Instrument', 'Animal', 'ECG').
         """
         labels_map = {
-            "Uniform": ["1","2","3", "4", "5","6","7","8","9","10"],
+            "Uniform": ["0-2204HZ", "2204-4409HZ", "4409-6614HZ", "6614-8819HZ", "8819-11024HZ", "11024-13229HZ", "13229-15434HZ", "15434-17639HZ", "17639-19844HZ", "19844-22049HZ"],
             "Music & Animal (Mix)": ["dog", "coyotes", "rat", "piano",  "triangle", "violin"],
-            "ECG": ["Normal", "Atrial flutter", "Ventricular tachycardia", "Atrial fibrillation"]
+            
+            "Instruments & Vocals": ["drums", "letter s",  "letter I",  "triangle"],
+            
         }
 
         icons_map = {
             "Music & Animal (Mix)": ["icons/dog.png", "icons/coyote.JPG", "icons/rat.png",  "icons/piano.png", "icons/triangle.png",  "icons/violin.png"],
-            
+            # "Instruments & Vocals": ["icons/xylophone.png", "Letter S", "Letter I", "icons/triangle.png"],
         }
 
         labels = labels_map.get(mode, ["Default"] * len(self.slider_labels))
