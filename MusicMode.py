@@ -12,7 +12,7 @@ class MusicMode(Mode):
             self.freq_ranges=dict()
             self.freq_ranges['drums'] =  [(20,260)]
             self.freq_ranges['letter s'] =  [(2000,15000)]
-            self.freq_ranges['letter I'] =  [(650,1700)]
+            self.freq_ranges['letter I'] =  [(600,1700)]
             self.freq_ranges['Triangle'] =  [(4000,19000)]
             self.update_slider_labels("Instrument")
             

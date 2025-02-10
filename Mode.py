@@ -5,7 +5,6 @@ import numpy as np
 from Reconstruction import Reconstruction
 from Spectrogram import Spectrogram
 from PyQt5.QtGui import QPixmap
-from scipy.signal import stft, istft, butter, lfilter
 
 class Mode(ABC):
     def __init__(self, sliders_widget, num_of_sliders, sample_instance, graph2, graph3, spectrogram_widget2, graph1):
@@ -30,7 +29,6 @@ class Mode(ABC):
 
         # Set up main layout for the sliders widget
         if self.sliders_widget.layout() is None:
-    
             main_layout = QVBoxLayout(self.sliders_widget)
             self.sliders_widget.setLayout(main_layout)
         else:
@@ -96,14 +94,7 @@ class Mode(ABC):
         pass
 
     def send_reconstruct(self, freq_mag, freq_phase):
-        if freq_mag.shape != freq_phase.shape:
-
-    # Reconstruct the STFT signal (complex)
-         reconstructed_stft = freq_mag * np.exp(1j * freq_phase)
-
-    # Perform inverse STFT to get the time-domain signal
-         _, signal = istft(reconstructed_stft, self.sample_rate)  # Adjus
-        else: signal = freq_mag * np.exp(1j * freq_phase)
+        signal = freq_mag * np.exp(1j * freq_phase)
         return signal
 
     def plot_inverse_fourier(self, freq_mag, freq_phase, time, graph):

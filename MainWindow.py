@@ -19,9 +19,6 @@ import sounddevice as sd
 import simpleaudio as sa
 from scipy.io import wavfile
 
-
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
