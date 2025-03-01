@@ -1,0 +1,1361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1453</width>
+    <height>586</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+    background-color: #ffffff; /* Set the background color */
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
+      <item>
+       <widget class="QFrame" name="browseFrame">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
+    border-radius: 15px; /* Curved borders */
+    border: 2px solid #ffffff; /* 3D outline */
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="browseFile">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+ margin: 0px 10px;
+ margin-top:5px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Browse File</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/icons8-upload-24.png</normaloff>icons/icons8-upload-24.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeFile">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+ margin: 0px 10px;
+ margin-top:5px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Remove File</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/icons8-remove-document-32.png</normaloff>icons/icons8-remove-document-32.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line1">
+           <property name="styleSheet">
+            <string notr="true">/* Line style */
+
+  /* Set the width of the line */
+  width: 20px;
+
+  /* Set the height of the line */
+  height: 5px;
+
+  /* Set the background color of the line */
+  background-color:#a8aaaf;
+
+background-color: rgb(168, 170, 175);
+  /* Set the border of the line */
+  border: 10px;
+
+  /* Set the border radius of the line */
+  border-radius:5px;
+
+
+
+
+</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>78</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="modeLabel_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Overpass SemiBold</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(26, 70, 91);
+background: rgba(74, 74, 74, 0);
+margin-top: 20px;
+margin-bottom: 10px;
+border: None;</string>
+             </property>
+             <property name="text">
+              <string>Choose Scale</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="scale">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    font-family: &quot;Arial&quot;;
+    font-weight: 600; /* Semibold */
+    font-size: 10pt; /* Adjust the font size as needed */
+ 	color: rgb(26, 70, 91);
+    border: 1px solid  rgb(26, 70, 91);; /* Set the border to 1px solid white */
+	margin-bottom: 5px;
+	background-color: #3388b0;   /* Background color for the combo box */
+    border: 1px solid #3388b0;   /* Border around the combo box */
+    border-radius: 10px;         /* Rounded corners */
+    padding: 6px 10px;           /* Padding around the text */
+    color: white;               
+}
+
+QComboBox::drop-down {
+color: rgb(26, 70, 91);
+}
+QComboBox QAbstractItemView {
+    background-color: #rgb(224, 224, 224);   /* Background color for the list */
+
+    selection-background-color: #3f7293; /* Selection color when an item is highlighted */
+
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Linear Scale</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Audiogram Scale</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line1_3">
+           <property name="styleSheet">
+            <string notr="true">/* Line style */
+
+  /* Set the width of the line */
+  width: 20px;
+
+  /* Set the height of the line */
+  height: 5px;
+
+  /* Set the background color of the line */
+  background-color:#a8aaaf;
+
+background-color: rgb(168, 170, 175);
+  /* Set the border of the line */
+  border: 10px;
+
+  /* Set the border radius of the line */
+  border-radius:5px;
+
+
+
+
+</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>78</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="modeLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Overpass SemiBold</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(26, 70, 91);
+background: rgba(74, 74, 74, 0);
+border: None;</string>
+             </property>
+             <property name="text">
+              <string>Choose Mode</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="mode">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    font-family: &quot;Arial&quot;;
+    font-weight: 600; /* Semibold */
+    font-size: 10pt; /* Adjust the font size as needed */
+ 	color: rgb(26, 70, 91);
+    border: 1px solid  rgb(26, 70, 91);; /* Set the border to 1px solid white */
+	margin-bottom: 5px;
+	background-color: #3388b0;   /* Background color for the combo box */
+    border: 1px solid #3388b0;   /* Border around the combo box */
+    border-radius: 10px;         /* Rounded corners */
+    padding: 6px 10px;           /* Padding around the text */
+    color: white;               
+}
+
+QComboBox::drop-down {
+color: rgb(26, 70, 91);
+}
+QComboBox QAbstractItemView {
+    background-color: #rgb(224, 224, 224);   /* Background color for the list */
+
+    selection-background-color: #3f7293; /* Selection color when an item is highlighted */
+
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Uniform Range</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Vocals and Musical Instruments</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Animals and Musical Instruments</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Weiner filter</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line1_2">
+           <property name="styleSheet">
+            <string notr="true">/* Line style */
+
+  /* Set the width of the line */
+  width: 20px;
+
+  /* Set the height of the line */
+  height: 5px;
+
+  /* Set the background color of the line */
+  background-color:#a8aaaf;
+
+background-color: rgb(168, 170, 175);
+  /* Set the border of the line */
+  border: 10px;
+
+  /* Set the border radius of the line */
+  border-radius:5px;
+
+
+
+
+</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>78</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="spectogramCheck">
+           <property name="font">
+            <font>
+             <family>Overpass SemiBold</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+QCheckBox {
+border: None;   
+    spacing: 7px; /* Adjust the spacing between the checkbox and label */
+color: rgb(26, 70, 91);
+margin-top: 20px;
+margin-bottom: 5px;
+font-size: 12pt
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Adjust the width of the checkbox indicator */
+    height: 15px; /* Adjust the height of the checkbox indicator */
+border-radius: 5px;
+
+}
+
+QCheckBox::indicator:unchecked {
+    border: 2px solid #555; /* Border color of the unchecked checkbox */
+    background-color: #fff; /* Background color of the unchecked checkbox */
+}
+
+QCheckBox::indicator:unchecked:hover {
+    border: 2px solid #777; /* Border color when the unchecked checkbox is hovered */
+}
+
+QCheckBox::indicator:checked {
+    border: 2px solid #0C1231; /* Border color of the checked checkbox */
+    background-color: #6192b3; /* Background color of the checked checkbox */
+}
+
+QCheckBox::indicator:checked:hover {
+    border: 2px solid #0C1231; /* Border color when the checked checkbox is hovered */
+    background-color: #507994; /* Background color when the checked checkbox is hovered */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Hide Spectogram</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="tristate">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line2">
+           <property name="styleSheet">
+            <string notr="true">/* Line style */
+
+  /* Set the width of the line */
+  width: 20px;
+
+  /* Set the height of the line */
+  height: 5px;
+
+  /* Set the background color of the line */
+  background-color:#a8aaaf;
+
+background-color: rgb(168, 170, 175);
+  /* Set the border of the line */
+  border: 10px;
+
+  /* Set the border radius of the line */
+  border-radius:5px;
+
+
+
+
+</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="styleSheet">
+            <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+border:None;</string>
+           </property>
+           <property name="text">
+            <string>Original Audio</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioBefore">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Play</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="styleSheet">
+            <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+border:None;</string>
+           </property>
+           <property name="text">
+            <string>Modified Audio</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="audioAfter">
+           <property name="font">
+            <font>
+             <family>-apple-system</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3388b0;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+  font-size: 17px;
+  height: 35px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 5px;
+  padding-right:1px;
+
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  touch-action: manipulation;
+  width:140px;
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Play</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>121</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalGraphs_4" stretch="0">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0,0,0,0,0,0,0">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <item>
+             <widget class="PlotWidget" name="graph1" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
+    border-radius: 15px; /* Curved borders */
+    border: 2px solid #ffffff; /* 3D outline */
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="PlotWidget" name="graph2" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
+    border-radius: 15px; /* Curved borders */
+    border: 2px solid #ffffff; /* 3D outline */
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_15">
+            <item>
+             <spacer name="horizontalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="zoomIn">
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>-apple-system</family>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;zoom in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+appearance: button;
+backface-visibility: hidden;
+  background-color: #3388b0;
+border-radius: 6px;
+border-width: 0;
+box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+font-size: 100%;
+height: 30px;
+line-height: 1.15;
+outline: none;
+overflow: hidden;
+padding: 3 10px;
+position: relative;
+text-align: center;
+text-transform: none;
+transform: translateZ(0);
+transition: all .2s,box-shadow .08s ease-in;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+width: 25px; /* Reduced width to 200 pixels */
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/zoom-in-64.png</normaloff>icons/zoom-in-64.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>27</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="play">
+              <property name="font">
+               <font>
+                <family>-apple-system</family>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+appearance: button;
+backface-visibility: hidden;
+  background-color: #3388b0;
+border-radius: 6px;
+border-width: 0;
+box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+font-size: 100%;
+height: 30px;
+line-height: 1.15;
+outline: none;
+overflow: hidden;
+padding: 3 10px;
+position: relative;
+text-align: center;
+text-transform: none;
+transform: translateZ(0);
+transition: all .2s,box-shadow .08s ease-in;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+width: 25px; /* Reduced width to 200 pixels */
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="radioButton">
+              <property name="font">
+               <font>
+                <family>-apple-system</family>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;replay&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+appearance: button;
+backface-visibility: hidden;
+  background-color: #3388b0;
+border-radius: 6px;
+border-width: 0;
+box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+font-size: 100%;
+height: 30px;
+line-height: 1.15;
+outline: none;
+overflow: hidden;
+padding: 3 10px;
+position: relative;
+text-align: center;
+text-transform: none;
+transform: translateZ(0);
+transition: all .2s,box-shadow .08s ease-in;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+width: 25px; /* Reduced width to 200 pixels */
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/icons8-rewind-50.png</normaloff>icons/icons8-rewind-50.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="zoomOut">
+              <property name="font">
+               <font>
+                <family>-apple-system</family>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;zoom out&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+appearance: button;
+backface-visibility: hidden;
+  background-color: #3388b0;
+border-radius: 6px;
+border-width: 0;
+box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+font-family: -apple-system,system-ui,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif;
+font-size: 100%;
+height: 30px;
+line-height: 1.15;
+outline: none;
+overflow: hidden;
+padding: 3 10px;
+position: relative;
+text-align: center;
+text-transform: none;
+transform: translateZ(0);
+transition: all .2s,box-shadow .08s ease-in;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+width: 25px; /* Reduced width to 200 pixels */
+}
+QPushButton:hover {
+    background-color: #2e6d8e;    /* Slightly lighter blue when hovering */
+}
+
+QPushButton:pressed {
+    background-color: #1b4b61;    /* Darker blue when pressed */
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/zoom-out-32.png</normaloff>icons/zoom-out-32.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>29</width>
+                <height>27</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <property name="spacing">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="font">
+                 <font>
+                  <family>Overpass SemiBold</family>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(26, 70, 91);</string>
+                </property>
+                <property name="text">
+                 <string>Speed</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="speedSlider">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QSlider::groove {
+background: rgb(149, 151, 154); /* Color of the track */
+border: 0px solid #999; /* Border of the track */
+height: 5px; /* Set the height of the track */
+border-radius: 2px; /* Round the corners of the track */
+}
+
+/* Style for the slider handle (thumb) */
+QSlider::handle {
+background: #3388b0; /* Color of the handle */
+width: 20px; /* Width of the handle */
+height: 10px; /* Height of the handle */
+margin: -5px 0; /* Negative margin to center the handle vertically */
+border-radius: 4px;
+border: none;
+}
+
+/* Style for the slider handle when pressed */
+QSlider::handle:pressed {
+background: #1f536b; /* Color of the handle when pressed */
+border: 1px solid #3498db; /* Border of the handle when pressed */
+}</string>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_17">
+            <item>
+             <widget class="PlotWidget" name="graph3" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>350</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(230, 234, 241); /* Background color */
+    border-radius: 15px; /* Curved borders */
+    border: 2px solid #ffffff; /* 3D outline */
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D shadow effect */</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="spectrogramLayout_4">
+            <item>
+             <widget class="QWidget" name="spectogram1" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>350</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>250</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="spectogram2" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>350</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>250</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_13">
+            <property name="styleSheet">
+             <string notr="true">/* Line style */
+
+  /* Set the width of the line */
+  width: 20px;
+
+  /* Set the height of the line */
+  height: 5px;
+
+  /* Set the background color of the line */
+  background-color: #a8aaaf;
+
+  /* Set the border of the line */
+  border: 10px;
+
+  /* Set the border radius of the line */
+  border-radius:5px;
+
+
+
+</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="slidersWidget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background: rgba(74, 74, 74, 0);
+</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="leftMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_">
+               <property name="font">
+                <font>
+                 <pointsize>-1</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">padding:0 0px;
+text-align: top;
+color:#2e556d;
+font-size: 20px;
+font-weiht:bold;
+
+
+</string>
+               </property>
+               <property name="text">
+                <string>Frequency Ranges:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Maximum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>78</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #2e556d;</string>
+        </property>
+        <property name="text">
+         <string>Signal Equalizer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLight_Mode">
+   <property name="text">
+    <string>Light Mode</string>
+   </property>
+  </action>
+  <action name="actionDark_Mode">
+   <property name="text">
+    <string>Dark Mode</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">pyqtgraph</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

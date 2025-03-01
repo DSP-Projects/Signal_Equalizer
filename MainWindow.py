@@ -4,17 +4,17 @@ import sys
 import pyqtgraph as pg
 from pyqtgraph import PlotWidget
 import os
-from Spectrogram import Spectrogram
-from Graph import Graph
+from Classes.Spectrogram import Spectrogram
+from Classes.Graph import Graph
 from PyQt5.QtGui import QIcon
-from Load import Load
-from Signal import Signal
-from sampling import Sampling
+from Classes.Load import Load
+from Classes.Signal import Signal
+from Classes.sampling import Sampling
 import numpy as np
-from UniformMode import UniformMode
-from MusicMode import MusicMode
-from WeinerFilterr import WeinerFilterr
-from AnimalAndMusic_Mode import AnimalAndMusic
+from Classes.UniformMode import UniformMode
+from Classes.MusicMode import MusicMode
+from Classes.WeinerFilterr import WeinerFilterr
+from Classes.AnimalAndMusic_Mode import AnimalAndMusic
 import sounddevice as sd 
 import simpleaudio as sa
 from scipy.io import wavfile
